@@ -1,4 +1,4 @@
 package com.example.Controller;
 
-public class NodeController {
+public class DashBoardController {
 }

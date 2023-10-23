@@ -3,7 +3,7 @@ module com.example {
     requires javafx.fxml;
     requires atlantafx.base;
     requires java.desktop;
-
+    requires java.sql;
 
     exports com.example.Controller;
     exports com.example;

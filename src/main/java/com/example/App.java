@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.io.IOException;
 
 /**
@@ -21,7 +23,9 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Application.setUserAgentStylesheet(new CupertinoLight().getUserAgentStylesheetBSS());
-        scene = new Scene(loadFXML("LoginFrm"), 640, 480);
+        scene = new Scene(loadFXML("LoginFrm"), 493, 327);
+
+//        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
 
         stage.show();
