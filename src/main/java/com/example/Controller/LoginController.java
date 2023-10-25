@@ -3,13 +3,16 @@ package com.example.Controller;
 import com.example.App;
 import com.example.Service.LoginService;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -19,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
     @FXML
-    private AnchorPane pane;
+    private Label lbErr;
     @FXML
     private TextField txtUsername;
     @FXML
@@ -44,8 +47,20 @@ public class LoginController implements Initializable {
 //    }
 
     public void onClickLogin(ActionEvent actionEvent) throws SQLException, IOException {
-        if(loginService.doLogin(txtUsername.getText(), txtPassword.getText())){
-            App.setRoot("DashBoard");
+        if(loginService.doLogin(txtUsername.getText(), txtPassword.getText()) == 0){
+            lbErr.setText("*Tài khoản hoặc mật khẩu không được để trống");
+            return;
         }
+
+        if(loginService.doLogin(txtUsername.getText(), txtPassword.getText()) == 1){
+            lbErr.setText("*Tài khoản hoặc mật khẩu không chính xác");
+            return;
+        }
+
+        App.setRoot("DashBoardFrm");
+    }
+
+    public void onClicked(MouseEvent mouseEvent) {
+        Platform.exit();
     }
 }
