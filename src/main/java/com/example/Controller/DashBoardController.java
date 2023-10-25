@@ -24,21 +24,27 @@ public class DashBoardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         items.add("Quản lý sách");
-        items.add("Quản lý người mượn");
+        items.add("Quản lý khách hàng");
         listMenu.setItems(items);
     }
 
     public void selectedItem(MouseEvent mouseEvent) {
         String selectedItem = listMenu.getSelectionModel().getSelectedItem();
-        if(selectedItem != null && selectedItem.equals("Quản lý sách")){
-            loadPane();
-        }
+        loadPane(selectedItem);
     }
 
-    private void loadPane(){
-        String frm = "/com/example/QuanLySachFrm.fxml";
+    private void loadPane(String selected){
+        String frm = "";
+        switch (selected){
+            case "Quản lý sách":
+                frm = "/com/example/QuanLySachFrm.fxml";
+                break;
+            case "Quản lý khách hàng":
+                frm = "/com/example/QuanLyKhachHangFrm.fxml";
+        }
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(frm));
+            pane.getChildren().clear();
             AnchorPane adminPane = loader.load();
             pane.getChildren().add(adminPane);
         } catch (IOException e) {
