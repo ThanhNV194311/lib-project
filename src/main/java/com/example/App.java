@@ -25,11 +25,12 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
-        Application.setUserAgentStylesheet(new CupertinoDark().getUserAgentStylesheetBSS());
+        Application.setUserAgentStylesheet(new CupertinoLight().getUserAgentStylesheetBSS());
         Parent root = loadFXML("LoginFrm");
         scene = new Scene(root);
         stage.setScene(scene);
-        stage.initStyle(StageStyle.UNDECORATED);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.setResizable(false);
         stage.show();
     }
 

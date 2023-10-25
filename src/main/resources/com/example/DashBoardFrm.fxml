@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
 
 <AnchorPane prefHeight="594.0" prefWidth="788.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.DashBoardController">
    <children>
-      <ListView fx:id="listMenu" layoutY="47.0" prefHeight="547.0" prefWidth="216.0" />
-      <Label layoutX="766.0" onMouseClicked="#onClicked" style="-fx-cursor: hand;" text="X" textFill="WHITE">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Label>
+      <ListView fx:id="listMenu" layoutY="47.0" onMouseClicked="#selectedItem" prefHeight="547.0" prefWidth="216.0" style="-fx-background-color: black;" />
       <AnchorPane fx:id="pane" layoutX="216.0" layoutY="47.0" prefHeight="547.0" prefWidth="570.0" />
    </children>
 </AnchorPane>

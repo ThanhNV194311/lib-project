@@ -35,11 +35,6 @@
                </font>
             </Text>
             <Button defaultButton="true" layoutX="317.0" layoutY="221.0" mnemonicParsing="false" onAction="#onClickLogin" prefHeight="33.0" prefWidth="123.0" text="Login" />
-            <Label layoutX="460.0" layoutY="8.0" onMouseClicked="#onClicked" style="-fx-cursor: hand;" text="X" textFill="WHITE">
-               <font>
-                  <Font size="28.0" />
-               </font>
-            </Label>
             <Label fx:id="lbErr" layoutX="119.0" layoutY="111.0" prefHeight="17.0" prefWidth="305.0" textFill="#f80b0b" />
          </children>
       </AnchorPane>

@@ -60,7 +60,4 @@ public class LoginController implements Initializable {
         App.setRoot("DashBoardFrm");
     }
 
-    public void onClicked(MouseEvent mouseEvent) {
-        Platform.exit();
-    }
 }
