@@ -7,10 +7,9 @@ import javafx.collections.ObservableList;
 import java.util.List;
 
 public class TableUtil {
+        @SafeVarargs
         public static <T> void showOnTable(TableView<T> table, ObservableList<T> data, TableColumn<T, ?>... columns) {
             table.setItems(data);
             table.getColumns().setAll(columns);
         }
-
-
 }

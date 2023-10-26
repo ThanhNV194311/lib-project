@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+
 
 public class CustomerService {
     ExecuteQuery executeQuery = ExecuteQuery.getInstance();
@@ -31,4 +31,12 @@ public class CustomerService {
         return result;
     }
 
+    public void addCustomer(String name, String email, String phoneNumber) {
+        String addCustomerSql = "INSERT INTO customer (name, email, phone_number, identity_card) VALUES ('" +
+                name + "', '" +
+                email + "', '" +
+                phoneNumber + "', '2')";
+
+        executeQuery.executeUpdate(addCustomerSql);
+    }
 }

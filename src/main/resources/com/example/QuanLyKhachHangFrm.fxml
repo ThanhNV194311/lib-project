@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.CustomerController">
    <children>
-      <TableView fx:id="tbCustomer" layoutY="55.0" prefHeight="238.0" prefWidth="715.0">
+      <TableView fx:id="tbCustomer" layoutY="55.0" onMouseClicked="#onSelected" prefHeight="238.0" prefWidth="715.0">
          <columns>
             <TableColumn fx:id="colId" prefWidth="65.0" text="ID" />
             <TableColumn fx:id="colName" prefWidth="214.0" text="Tên khách hàng" />
@@ -53,7 +53,7 @@
             <TextField fx:id="txtPhoneNumber" prefHeight="30.0" prefWidth="133.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button fx:id="btnAdd" layoutX="522.0" layoutY="305.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Thêm" />
+      <Button fx:id="btnAdd" layoutX="522.0" layoutY="305.0" mnemonicParsing="false" onAction="#onClickAdd" prefHeight="25.0" prefWidth="68.0" text="Thêm" />
       <Button fx:id="btnUpdate" layoutX="613.0" layoutY="305.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Sửa" />
       <Button fx:id="btnDelete" layoutX="522.0" layoutY="358.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Xóa" />
       <Label layoutX="21.0" layoutY="14.0" text="Tìm kiếm :">
