@@ -1,9 +1,6 @@
 package com.example;
 
-import atlantafx.base.theme.CupertinoDark;
-import atlantafx.base.theme.CupertinoLight;
-import atlantafx.base.theme.PrimerDark;
-import atlantafx.base.theme.PrimerLight;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,7 +22,8 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
-        Application.setUserAgentStylesheet(new CupertinoLight().getUserAgentStylesheetBSS());
+
+        Application.setUserAgentStylesheet("primer-light.css");
         Parent root = loadFXML("LoginFrm");
         scene = new Scene(root);
         stage.setScene(scene);
