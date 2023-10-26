@@ -26,6 +26,9 @@ public class DashBoardController implements Initializable {
         items.add("Quản lý sách");
         items.add("Quản lý khách hàng");
         listMenu.setItems(items);
+
+        listMenu.getSelectionModel().selectFirst();
+        loadPane(listMenu.getSelectionModel().getSelectedItem());
     }
 
     public void selectedItem(MouseEvent mouseEvent) {
@@ -41,6 +44,9 @@ public class DashBoardController implements Initializable {
                 break;
             case "Quản lý khách hàng":
                 frm = "/com/example/QuanLyKhachHangFrm.fxml";
+                break;
+            default:
+                frm = "com/example/QuanLySachFrm.fxml";
         }
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(frm));

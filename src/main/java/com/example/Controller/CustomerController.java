@@ -1,27 +1,34 @@
 package com.example.Controller;
 
+import com.example.Exception.EmailNotValidException;
+import com.example.Exception.NullException;
+import com.example.Exception.PhoneNumberNotValidException;
 import com.example.Models.Customer;
 import com.example.Service.CustomerService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
+import static com.example.Utils.AlertUtil.showAlert;
 import static com.example.Utils.TableUtil.showOnTable;
 
 public class CustomerController implements Initializable {
+    @FXML
+    private Label lbErrEmail;
+    @FXML
+    private Label lbErrPhoneNumber;
+    @FXML
+    private Label lbErrID;
+    @FXML
+    private Label lbErrName;
     @FXML
     private TableView<Customer> tbCustomer;
     @FXML
@@ -50,7 +57,10 @@ public class CustomerController implements Initializable {
     private TextField txtSearch;
     @FXML
     private Button btnHistory;
+
     private CustomerService customerService;
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -82,7 +92,24 @@ public class CustomerController implements Initializable {
     }
 
     public void onClickAdd(ActionEvent actionEvent) throws SQLException {
-        customerService.addCustomer(txtName.getText(), txtEmail.getText(), txtPhoneNumber.getText());
+        lbErrEmail.setText("");
+        lbErrPhoneNumber.setText("");
+
+        try {
+            customerService.addCustomer(txtName.getText(), txtEmail.getText(), txtPhoneNumber.getText());
+        } catch (NullException e) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi", null, e.getMessage());
+        } catch (EmailNotValidException e) {
+            lbErrEmail.setText(e.getMessage());
+        } catch (PhoneNumberNotValidException e) {
+           lbErrPhoneNumber.setText(e.getMessage());
+        }
+        tbCustomer.setItems(customerService.customersData());
+    }
+
+
+    public void onClickDelete(ActionEvent actionEvent) throws SQLException {
+        customerService.deleteCustomer(txtId.getText());
         tbCustomer.setItems(customerService.customersData());
     }
 }
