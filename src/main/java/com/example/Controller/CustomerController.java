@@ -95,8 +95,9 @@ public class CustomerController implements Initializable {
         lbErrEmail.setText("");
         lbErrPhoneNumber.setText("");
 
+        int customerId = Integer.parseInt(txtId.getText());
         try {
-            customerService.addCustomer(txtName.getText(), txtEmail.getText(), txtPhoneNumber.getText());
+            customerService.addCustomer(customerId,txtName.getText(), txtEmail.getText(), txtPhoneNumber.getText());
         } catch (NullException e) {
             showAlert(Alert.AlertType.ERROR, "Lỗi", null, e.getMessage());
         } catch (EmailNotValidException e) {
@@ -111,5 +112,18 @@ public class CustomerController implements Initializable {
     public void onClickDelete(ActionEvent actionEvent) throws SQLException {
         customerService.deleteCustomer(txtId.getText());
         tbCustomer.setItems(customerService.customersData());
+    }
+
+    public void onClickUpdate(ActionEvent actionEvent) {
+        int customerId = Integer.parseInt(txtId.getText());
+        try {
+            customerService.updateCustomer(customerId, txtName.getText(), txtEmail.getText(),txtPhoneNumber.getText());
+        } catch (NullException e) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi", null, e.getMessage());
+        } catch (EmailNotValidException e) {
+            lbErrEmail.setText(e.getMessage());
+        } catch (PhoneNumberNotValidException e) {
+            lbErrPhoneNumber.setText(e.getMessage());
+        }
     }
 }

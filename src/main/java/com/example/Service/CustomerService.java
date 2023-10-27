@@ -38,7 +38,19 @@ public class CustomerService {
         return result;
     }
 
-    public void addCustomer(String name, String email, String phoneNumber) throws EmailNotValidException, PhoneNumberNotValidException, NullException {
+    public void addCustomer(int id, String name, String email, String phoneNumber) throws EmailNotValidException, PhoneNumberNotValidException, NullException {
+        validateInformation(name, email, phoneNumber);
+
+        String addCustomerSql = "INSERT INTO customer (customer_id,name, email, phone_number, identity_card) VALUES (" +
+                id + ", '" +
+                name + "', '" +
+                email + "', '" +
+                phoneNumber + "', '2')";
+
+        executeQuery.executeUpdate(addCustomerSql);
+    }
+
+    private void validateInformation(String name, String email, String phoneNumber) throws NullException, EmailNotValidException, PhoneNumberNotValidException {
         if(name.isEmpty() || email.isEmpty() || phoneNumber.isEmpty()){
             throw new NullException("Không được để trống các thông tin");
         }
@@ -50,13 +62,6 @@ public class CustomerService {
         if(!isValidPhoneNumber(phoneNumber)){
             throw new PhoneNumberNotValidException("Số đện thoại không hợp lệ");
         }
-
-        String addCustomerSql = "INSERT INTO customer (name, email, phone_number, identity_card) VALUES ('" +
-                name + "', '" +
-                email + "', '" +
-                phoneNumber + "', '2')";
-
-        executeQuery.executeUpdate(addCustomerSql);
     }
 
     public void deleteCustomer(String customerId){
@@ -66,8 +71,6 @@ public class CustomerService {
         }
 
     }
-
-
 
     private boolean isValidEmail(String email){
         Pattern pattern = Pattern.compile(Regex.rgEmail);
@@ -82,4 +85,11 @@ public class CustomerService {
     }
 
 
+    public void updateCustomer(int customerId, String name, String email, String phoneNumber) throws PhoneNumberNotValidException, EmailNotValidException, NullException {
+
+
+        String updateCustomerSql = "Update";
+
+        validateInformation(name, email, phoneNumber);
+    }
 }
