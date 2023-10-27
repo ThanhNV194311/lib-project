@@ -5,11 +5,13 @@ import com.example.Exception.NullException;
 import com.example.Exception.PhoneNumberNotValidException;
 import com.example.Models.Customer;
 import com.example.Service.CustomerService;
+import com.example.Utils.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 
@@ -74,7 +76,7 @@ public class CustomerController implements Initializable {
     }
 
     private void setCell() {
-        colId.setCellValueFactory(new PropertyValueFactory<Customer,Integer>("customerId"));
+        colId.setCellValueFactory(new PropertyValueFactory<Customer,Integer>("identityCard"));
         colName.setCellValueFactory(new PropertyValueFactory<Customer, String>("name"));
         colEmail.setCellValueFactory(new PropertyValueFactory<Customer, String>("email"));
         colPhoneNumber.setCellValueFactory(new PropertyValueFactory<Customer, String>("phoneNumber"));
@@ -83,8 +85,8 @@ public class CustomerController implements Initializable {
     public void onSelected(MouseEvent mouseEvent) {
         Customer customer = tbCustomer.getSelectionModel().getSelectedItem();
         if(customer != null){
-            String customerIdString = String.valueOf(customer.getCustomerId());
-            txtId.setText(customerIdString);
+
+            txtId.setText(customer.getIdentityCard());
             txtName.setText(customer.getName());
             txtEmail.setText(customer.getEmail());
             txtPhoneNumber.setText(customer.getPhoneNumber());
@@ -106,18 +108,21 @@ public class CustomerController implements Initializable {
            lbErrPhoneNumber.setText(e.getMessage());
         }
         tbCustomer.setItems(customerService.customersData());
+        customerService.clear(txtEmail,txtId,txtName,txtPhoneNumber);
     }
 
 
     public void onClickDelete(ActionEvent actionEvent) throws SQLException {
-        customerService.deleteCustomer(txtId.getText());
+        String customerId = tbCustomer.getSelectionModel().getSelectedItem().getIdentityCard();
+        customerService.deleteCustomer(customerId);
         tbCustomer.setItems(customerService.customersData());
     }
 
-    public void onClickUpdate(ActionEvent actionEvent) {
-        int customerId = Integer.parseInt(txtId.getText());
+    public void onClickUpdate(ActionEvent actionEvent) throws SQLException {
+      String oldId = tbCustomer.getSelectionModel().getSelectedItem().getIdentityCard();
+
         try {
-            customerService.updateCustomer(customerId, txtName.getText(), txtEmail.getText(),txtPhoneNumber.getText());
+            customerService.updateCustomer(oldId, txtName.getText(), txtEmail.getText(),txtPhoneNumber.getText(),txtId.getText());
         } catch (NullException e) {
             showAlert(Alert.AlertType.ERROR, "Lỗi", null, e.getMessage());
         } catch (EmailNotValidException e) {
@@ -125,5 +130,17 @@ public class CustomerController implements Initializable {
         } catch (PhoneNumberNotValidException e) {
             lbErrPhoneNumber.setText(e.getMessage());
         }
+        tbCustomer.setItems(customerService.customersData());
+        tbCustomer.refresh();
+        AlertUtil.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Cập nhật thành công!");
+
+    }
+
+    public void onClickExport(ActionEvent actionEvent) {
+        customerService.exportToExcel(tbCustomer,"filename.xlsx");
+    }
+
+    public void search(KeyEvent keyEvent) {
+        System.out.println(keyEvent.getText());
     }
 }

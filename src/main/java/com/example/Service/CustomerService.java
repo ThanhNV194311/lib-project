@@ -7,8 +7,12 @@ import com.example.Exception.PhoneNumberNotValidException;
 import com.example.Models.Customer;
 import com.example.Utils.AlertUtil;
 import com.example.Utils.ExecuteQuery;
+import com.example.Utils.ExportToExcel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +25,7 @@ public class CustomerService {
     public ObservableList<Customer> customersData() throws SQLException {
         ObservableList<Customer> result = FXCollections.observableArrayList();
 
-        String getCustomerSql="Select * from customer";
+        String getCustomerSql="Select * from customer where is_delete = '" + "0'";
         ResultSet resultSet = executeQuery.executeQuery(getCustomerSql);
 
         while (resultSet.next()){
@@ -36,6 +40,12 @@ public class CustomerService {
         }
 
         return result;
+    }
+
+    public void clear(TextField ...textFields){
+        for (TextField textField : textFields) {
+            textField.clear();
+        }
     }
 
     public void addCustomer(int id, String name, String email, String phoneNumber) throws EmailNotValidException, PhoneNumberNotValidException, NullException {
@@ -65,7 +75,10 @@ public class CustomerService {
     }
 
     public void deleteCustomer(String customerId){
-        String deleteCustomerSql = "Delete from Customer Where customer_id = '" + customerId + "'";
+        String deleteCustomerSql = "UPDATE customer "
+                + "SET is_delete = 1 "
+                + "WHERE identity_card = '" + customerId + "'";
+
         if(AlertUtil.showConfirmation("Việc xoá này sẽ xoá toàn bộ lịch sử mượn của khách!")){
             executeQuery.executeUpdate(deleteCustomerSql);
         }
@@ -85,11 +98,23 @@ public class CustomerService {
     }
 
 
-    public void updateCustomer(int customerId, String name, String email, String phoneNumber) throws PhoneNumberNotValidException, EmailNotValidException, NullException {
-
-
-        String updateCustomerSql = "Update";
-
+    public void updateCustomer(String customerIdOld, String name, String email, String phoneNumber, String customerIdNew) throws PhoneNumberNotValidException, EmailNotValidException, NullException {
         validateInformation(name, email, phoneNumber);
+
+        String updateCustomerSql = "UPDATE Customer "
+                + "SET name = '" + name + "', "
+                + "identity_card = '" + customerIdNew + "', "
+                + "email = '" + email + "', "
+                + "phone_number = '" + phoneNumber + "' "
+                + "WHERE identity_card = '" + customerIdOld + "'";
+
+        executeQuery.executeUpdate(updateCustomerSql);
+    }
+
+    public void exportToExcel(TableView tableView, String fileName){
+        if (AlertUtil.showConfirmation("Bạn có muốn xuất dữ liệu ra excel không?")) {
+            ExportToExcel.exportToExcel(tableView, "Courses.xlsx");
+            AlertUtil.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Xuất dữ liệu thành công!");
+        }
     }
 }
