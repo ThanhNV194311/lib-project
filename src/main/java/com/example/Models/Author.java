@@ -1,20 +1,20 @@
 package com.example.Models;
 
-public class Category {
-    private int categoryId;
+public class Author {
+    private int authorId;
     private String name;
 
-    public Category(int categoryId, String name) {
-        this.categoryId = categoryId;
+    public Author(int authorId, String name) {
+        this.authorId = authorId;
         this.name = name;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public int getAuthorId() {
+        return authorId;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 
     public String getName() {
@@ -28,5 +28,4 @@ public class Category {
     public String toString() {
         return name;
     }
-
 }

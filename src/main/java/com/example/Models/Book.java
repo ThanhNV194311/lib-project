@@ -1,19 +1,22 @@
 package com.example.Models;
-import java.sql.Timestamp;
-public class Book { private int id;
-    private String name;
-    private int categoryId;
-    private int amount;
-    private String image;
-    private Timestamp createDay;
 
-    public Book(int id, String name, int categoryId, int amount, String image, Timestamp createDay) {
+
+public class Book {
+    private int id;
+    private String name;
+    private int amount;
+    private String createDay;
+
+    private String author;
+    private String category;
+
+    public Book(int id, String name, String author, String category, String createDay, int amount) {
         this.id = id;
         this.name = name;
-        this.categoryId = categoryId;
-        this.amount = amount;
-        this.image = image;
+        this.author = author;
+        this.category = category;
         this.createDay = createDay;
+        this.amount = amount;
     }
 
     public int getId() {
@@ -32,14 +35,6 @@ public class Book { private int id;
         this.name = name;
     }
 
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public int getAmount() {
         return amount;
     }
@@ -48,19 +43,30 @@ public class Book { private int id;
         this.amount = amount;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public Timestamp getCreateDay() {
+    public String getCreateDay() {
         return createDay;
     }
 
-    public void setCreateDay(Timestamp createDay) {
+    public void setCreateDay(String createDay) {
         this.createDay = createDay;
     }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    
+
+
 }
