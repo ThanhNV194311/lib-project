@@ -10,9 +10,9 @@ import java.sql.Statement;
 public class ExecuteQuery {
     private static ExecuteQuery instance;
 
-    private final static String jdbcUrl = "jdbc:mysql://127.0.0.1:3306/lib?useSSL=false";
+    private final static String jdbcUrl = "jdbc:mysql://127.0.0.1:3306/lib";
     private final static String username = "root";
-    private final static String password = "hai123";
+    private final static String password = "Thinh@123";
 
     private ResultSet resultSet; // Member variable for storing the ResultSet
     private Connection connection;
