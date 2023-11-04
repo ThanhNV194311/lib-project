@@ -1,30 +1,26 @@
 package com.example.Models;
-
-
+import java.sql.Timestamp;
 public class Book {
-    private int id;
+    private int bookId;
     private String name;
+    private int categoryId;
     private int amount;
-    private String createDay;
+    private Timestamp createDay;
 
-    private String author;
-    private String category;
-
-    public Book(int id, String name, String author, String category, String createDay, int amount) {
-        this.id = id;
+    public Book(int id, String name, int categoryId, int amount, Timestamp createDay) {
+        this.bookId = id;
         this.name = name;
-        this.author = author;
-        this.category = category;
-        this.createDay = createDay;
+        this.categoryId = categoryId;
         this.amount = amount;
+        this.createDay = createDay;
     }
 
-    public int getId() {
-        return id;
+    public int getBookId() {
+        return bookId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 
     public String getName() {
@@ -35,6 +31,14 @@ public class Book {
         this.name = name;
     }
 
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public int getAmount() {
         return amount;
     }
@@ -43,30 +47,11 @@ public class Book {
         this.amount = amount;
     }
 
-    public String getCreateDay() {
+    public Timestamp getCreateDay() {
         return createDay;
     }
 
-    public void setCreateDay(String createDay) {
+    public void setCreateDay(Timestamp createDay) {
         this.createDay = createDay;
     }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-    
-
-
 }

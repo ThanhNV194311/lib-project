@@ -1,6 +1,8 @@
 package com.example.Controller;
 
+import com.example.App;
 import com.example.Exception.EmailNotValidException;
+import com.example.Exception.IsExistedException;
 import com.example.Exception.NullException;
 import com.example.Exception.PhoneNumberNotValidException;
 import com.example.Models.Customer;
@@ -15,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -66,8 +69,15 @@ public class CustomerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setCell();
         customerService = new CustomerService();
+
+        // regis event
+        customerService.setTextFieldClearErrorOnTyping(txtId, lbErrID);
+        customerService.setTextFieldClearErrorOnTyping(txtName, lbErrName);
+        customerService.setTextFieldClearErrorOnTyping(txtEmail, lbErrEmail);
+        customerService.setTextFieldClearErrorOnTyping(txtPhoneNumber, lbErrPhoneNumber);
+
+        setCell();
         try {
             showOnTable(tbCustomer,customerService.customersData(),colId,colName,colPhoneNumber,colEmail);
         } catch (SQLException e) {
@@ -97,15 +107,29 @@ public class CustomerController implements Initializable {
         lbErrEmail.setText("");
         lbErrPhoneNumber.setText("");
 
-        int customerId = Integer.parseInt(txtId.getText());
         try {
-            customerService.addCustomer(customerId,txtName.getText(), txtEmail.getText(), txtPhoneNumber.getText());
+            customerService.addCustomer(txtId.getText(),txtName.getText(), txtEmail.getText(), txtPhoneNumber.getText());
         } catch (NullException e) {
             showAlert(Alert.AlertType.ERROR, "Lỗi", null, e.getMessage());
         } catch (EmailNotValidException e) {
             lbErrEmail.setText(e.getMessage());
         } catch (PhoneNumberNotValidException e) {
            lbErrPhoneNumber.setText(e.getMessage());
+        } catch (IsExistedException e) {
+            if(e.getMessage().equals("Số điện thoại đã tồn tại trong hệ thống")){
+                lbErrPhoneNumber.setText(e.getMessage());
+                return;
+            }
+
+            if(e.getMessage().equals("Email đã tồn tại trong hệ thống")){
+                lbErrEmail.setText(e.getMessage());
+                return;
+            }
+
+            if(e.getMessage().equals("Id đã tồn tại trong hệ thống")){
+                lbErrID.setText(e.getMessage());
+                return;
+            }
         }
         tbCustomer.setItems(customerService.customersData());
         customerService.clear(txtEmail,txtId,txtName,txtPhoneNumber);
@@ -116,10 +140,18 @@ public class CustomerController implements Initializable {
         String customerId = tbCustomer.getSelectionModel().getSelectedItem().getIdentityCard();
         customerService.deleteCustomer(customerId);
         tbCustomer.setItems(customerService.customersData());
+        customerService.clear(txtEmail,txtId,txtName,txtPhoneNumber);
     }
 
     public void onClickUpdate(ActionEvent actionEvent) throws SQLException {
-      String oldId = tbCustomer.getSelectionModel().getSelectedItem().getIdentityCard();
+        String oldId = null;
+
+        Customer selectedCustomer = tbCustomer.getSelectionModel().getSelectedItem();
+        if (selectedCustomer != null) {
+            oldId = selectedCustomer.getIdentityCard();
+        } else {
+            oldId = txtId.getId();
+        }
 
         try {
             customerService.updateCustomer(oldId, txtName.getText(), txtEmail.getText(),txtPhoneNumber.getText(),txtId.getText());
@@ -127,20 +159,36 @@ public class CustomerController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Lỗi", null, e.getMessage());
         } catch (EmailNotValidException e) {
             lbErrEmail.setText(e.getMessage());
+            return;
         } catch (PhoneNumberNotValidException e) {
             lbErrPhoneNumber.setText(e.getMessage());
+            return;
+        } catch (IsExistedException e) {
+           if(e.getMessage().equals("Số điện thoại đã tồn tại trong hệ thống")){
+               lbErrPhoneNumber.setText(e.getMessage());
+                return;
+           }
+
+           if(e.getMessage().equals("Email đã tồn tại trong hệ thống")){
+               lbErrEmail.setText(e.getMessage());
+               return;
+           }
         }
         tbCustomer.setItems(customerService.customersData());
-        tbCustomer.refresh();
-        AlertUtil.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Cập nhật thành công!");
-
+        customerService.clear(txtEmail,txtId,txtName,txtPhoneNumber);
     }
 
     public void onClickExport(ActionEvent actionEvent) {
-        customerService.exportToExcel(tbCustomer,"filename.xlsx");
+        customerService.exportToExcel(tbCustomer);
     }
 
-    public void search(KeyEvent keyEvent) {
-        System.out.println(keyEvent.getText());
+    public void search(KeyEvent keyEvent) throws SQLException {
+        String keyword = keyEvent.getText();
+        tbCustomer.setItems(customerService.search(keyword, customerService.customersData()));
+    }
+
+
+    public void onClickHistory(ActionEvent actionEvent) throws IOException {
+        App.setRootPop("/com/example/QuanLyMuonSachFrm","Danh sách đã mượn", false);
     }
 }

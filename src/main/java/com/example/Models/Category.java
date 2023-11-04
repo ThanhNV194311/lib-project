@@ -1,20 +1,23 @@
 package com.example.Models;
 
 public class Category {
-    private int categoryId;
+    private int id;
     private String name;
 
-    public Category(int categoryId, String name) {
-        this.categoryId = categoryId;
+    public Category(int id, String name) {
+        this.id = id;
         this.name = name;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public Category() {
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -24,9 +27,4 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
-    @Override
-    public String toString() {
-        return name;
-    }
-
 }
