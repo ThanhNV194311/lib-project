@@ -69,10 +69,10 @@ public class CustomerService {
     public void updateCustomer(String customerIdOld, String name, String email, String phoneNumber, String customerIdNew) throws PhoneNumberNotValidException, EmailNotValidException, NullException, IsExistedException, SQLException {
 //        validateInformation(customerIdOld, name, email, phoneNumber);
         regexInfo(name, email, phoneNumber);
-        if(isExisted("email",email)){
+        if(isExisted("email",email) && !email.equals(getData("email",email))){
             throw new IsExistedException("Email đã tồn tại trong hệ thống");
         }
-        if(isExisted("phone_number", phoneNumber)){
+        if(isExisted("phone_number", phoneNumber) && phoneNumber.equals(getData("phone_number", phoneNumber))){
             throw new IsExistedException("Số điện thoại đã tồn tại trong hệ thống");
         }
 
@@ -190,5 +190,17 @@ public class CustomerService {
 
     public void setTextFieldClearErrorOnTyping(TextField textField, Label errorLabel) {
         textField.setOnKeyTyped(event -> clear(errorLabel));
+    }
+
+    private String getData(String key, String value) throws SQLException {
+       String sqlGetData = "Select " + key + " from customer where " + key + "='" + value +"'";
+       ResultSet resultSet = executeQuery.executeQuery(sqlGetData);
+
+        if (resultSet.next()) {
+            return resultSet.getString(key);
+        }
+
+        return null;
+
     }
 }
