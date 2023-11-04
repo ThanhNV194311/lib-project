@@ -1,27 +1,26 @@
 package com.example.Models;
 import java.sql.Timestamp;
-public class Book { private int id;
+public class Book {
+    private int bookId;
     private String name;
     private int categoryId;
     private int amount;
-    private String image;
     private Timestamp createDay;
 
-    public Book(int id, String name, int categoryId, int amount, String image, Timestamp createDay) {
-        this.id = id;
+    public Book(int id, String name, int categoryId, int amount, Timestamp createDay) {
+        this.bookId = id;
         this.name = name;
         this.categoryId = categoryId;
         this.amount = amount;
-        this.image = image;
         this.createDay = createDay;
     }
 
-    public int getId() {
-        return id;
+    public int getBookId() {
+        return bookId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 
     public String getName() {
@@ -46,14 +45,6 @@ public class Book { private int id;
 
     public void setAmount(int amount) {
         this.amount = amount;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public Timestamp getCreateDay() {

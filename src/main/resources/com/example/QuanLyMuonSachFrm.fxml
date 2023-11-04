@@ -9,17 +9,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TableView layoutY="110.0" prefHeight="293.0" prefWidth="642.0">
          <columns>
-            <TableColumn prefWidth="97.0" text="ID mượn sách" />
             <TableColumn prefWidth="91.0" text="ID khách hàng" />
-            <TableColumn prefWidth="158.0" text="Tên khách hàng" />
-            <TableColumn prefWidth="51.0" text="ID sách" />
-            <TableColumn prefWidth="149.0" text="Tên sách" />
-            <TableColumn prefWidth="95.0" text="Số lượng" />
+            <TableColumn prefWidth="69.0" text="ID sách" />
+            <TableColumn prefWidth="131.0" text="Tên sách" />
+            <TableColumn prefWidth="156.0" text="Số lượng" />
+            <TableColumn prefWidth="119.0" text="Ngày mượn" />
+            <TableColumn prefWidth="75.0" text="Ngày trả" />
          </columns>
       </TableView>
       <Label layoutX="20.0" layoutY="29.0" text="Tìm kiếm :">

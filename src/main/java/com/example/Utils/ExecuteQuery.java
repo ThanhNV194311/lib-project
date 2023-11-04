@@ -11,7 +11,7 @@ public class ExecuteQuery {
 
     private final static String jdbcUrl = "jdbc:mysql://127.0.0.1:3306/lib";
     private final static String username = "root";
-    private final static String password = "Thinh@123";
+    private final static String password = "1";
 
     private Connection connection;
 

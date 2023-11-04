@@ -8,8 +8,10 @@ module com.example {
 
     exports com.example.Controller;
     exports com.example.Models;
+    exports com.example.DTO;
     exports com.example;
 
     opens com.example to javafx.fxml;
     opens com.example.Controller to javafx.fxml;
+    opens com.example.DTO to javafx.fxml;
 }
