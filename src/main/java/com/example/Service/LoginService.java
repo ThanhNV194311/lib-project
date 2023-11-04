@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginService {
+public class LoginService { 
     ExecuteQuery executeQuery = ExecuteQuery.getInstance();
     public int doLogin(String username, String password) throws SQLException {
         if(isEmpty(username, password)){
