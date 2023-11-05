@@ -6,7 +6,7 @@ import com.example.Exception.IsExistedException;
 import com.example.Exception.NullException;
 import com.example.Exception.PhoneNumberNotValidException;
 import com.example.Models.Customer;
-import com.example.Utils.AlertUtil;
+import com.example.Helper.AlertHelper;
 import com.example.Utils.ExecuteQuery;
 import com.example.Utils.ExportToExcel;
 import javafx.collections.FXCollections;
@@ -63,7 +63,7 @@ public class CustomerService {
                 phoneNumber + "')";
 
         executeQuery.executeUpdate(addCustomerSql);
-        AlertUtil.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Thêm khách hàng mới thành công!");
+        AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Thêm khách hàng mới thành công!");
     }
 
     public void updateCustomer(String customerIdOld, String name, String email, String phoneNumber, String customerIdNew) throws PhoneNumberNotValidException, EmailNotValidException, NullException, IsExistedException, SQLException {
@@ -84,7 +84,7 @@ public class CustomerService {
                 + "WHERE identity_card = '" + customerIdOld + "'";
 
         executeQuery.executeUpdate(updateCustomerSql);
-        AlertUtil.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Cập nhật thành công!");
+        AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Cập nhật thành công!");
 
     }
 
@@ -93,7 +93,7 @@ public class CustomerService {
                 + "SET is_delete = 1 "
                 + "WHERE identity_card = '" + customerId + "'";
 
-        if(AlertUtil.showConfirmation("Việc xoá này sẽ xoá toàn bộ lịch sử mượn của khách!")){
+        if(AlertHelper.showConfirmation("Việc xoá này sẽ xoá toàn bộ lịch sử mượn của khách!")){
             executeQuery.executeUpdate(deleteCustomerSql);
         }
 
@@ -149,9 +149,9 @@ public class CustomerService {
 
 
     public void exportToExcel(TableView tableView){
-        if (AlertUtil.showConfirmation("Bạn có muốn xuất dữ liệu ra excel không?")) {
+        if (AlertHelper.showConfirmation("Bạn có muốn xuất dữ liệu ra excel không?")) {
             ExportToExcel.exportToExcel(tableView, stage);
-            AlertUtil.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Xuất dữ liệu thành công!");
+            AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Xuất dữ liệu thành công!");
         }
     }
 

@@ -21,6 +21,14 @@ public class BookDTO {
         this.quantity = quantity;
     }
 
+    public BookDTO(String bookName, String authorName, String categoryName, int quantity, LocalDate publishDate){ // use for addBookServices
+        this.bookName = bookName;
+        this.authorName = authorName;
+        this.categoryName = categoryName;
+        this.publishDate = publishDate;
+        this.quantity = quantity;
+    }
+
     public int getBookId() {
         return bookId;
     }
@@ -67,5 +75,17 @@ public class BookDTO {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "BookDTO{" +
+                "bookId=" + bookId +
+                ", bookName='" + bookName + '\'' +
+                ", authorName='" + authorName + '\'' +
+                ", categoryName='" + categoryName + '\'' +
+                ", publishDate=" + publishDate +
+                ", quantity=" + quantity +
+                '}';
     }
 }

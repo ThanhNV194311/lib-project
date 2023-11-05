@@ -7,7 +7,6 @@ import com.example.Exception.NullException;
 import com.example.Exception.PhoneNumberNotValidException;
 import com.example.Models.Customer;
 import com.example.Service.CustomerService;
-import com.example.Utils.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,8 +21,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static com.example.Utils.AlertUtil.showAlert;
-import static com.example.Utils.TableUtil.showOnTable;
+import static com.example.Helper.AlertHelper.showAlert;
+import static com.example.Helper.TableHelper.showOnTable;
 
 public class CustomerController implements Initializable {
     @FXML

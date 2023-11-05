@@ -1,12 +1,10 @@
-package com.example.Utils;
+package com.example.Helper;
 
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.collections.ObservableList;
 
-import java.util.List;
-
-public class TableUtil {
+public class TableHelper {
         @SafeVarargs
         public static <T> void showOnTable(TableView<T> table, ObservableList<T> data, TableColumn<T, ?>... columns) {
             table.setItems(data);
