@@ -1,9 +1,11 @@
 package com.example.Service.SubServices;
 
 import com.example.DTO.BookDTO;
+import com.example.Helper.AlertHelper;
 import com.example.Utils.ExecuteQuery;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -64,22 +66,38 @@ public class AddBookServices {
 
         BookDTO bookDTO = new BookDTO(bookName, selectedAuthorName, selectedCategoryName, quantityText, publishDate);
 //        System.out.println(bookDTO.toString());
-        if(!isExisted("name", bookDTO.getAuthorName(),"author")){
-            String insertAuthorSql = "Insert into author(name) values('"+ bookDTO.getAuthorName() + "'";
+        if(!isExisted("name", bookDTO.getAuthorName(),"author")){ // neu khong co thi them
+            System.out.println("add author");
+            String insertAuthorSql = "Insert into author(name) values('"+ bookDTO.getAuthorName() + "')";
+//            System.out.println(insertAuthorSql);
             executeQuery.executeUpdate(insertAuthorSql);
         }
 
-        if(!isExisted("name",bookDTO.getCategoryName(),"category")){
-            String insertCategorySql = "Insert into category(name) values('" + bookDTO.getCategoryName() + "'";
+        if(!isExisted("name",bookDTO.getCategoryName(),"category")){ // neu khong co thi them
+            System.out.println("add category");
+            String insertCategorySql = "Insert into category(name) values('" + bookDTO.getCategoryName() + "')";
+//            System.out.println(insertCategorySql);
+            executeQuery.executeUpdate(insertCategorySql);
         }
 
-        
+//        System.out.println(findIdByName("author_id",bookDTO.getAuthorName(), "author", "name"));
+
+        int authorId = findIdByName("author_id",bookDTO.getAuthorName(), "author", "name");
+
+        int categoryId = findIdByName("category_id", bookDTO.getCategoryName(),"category","name");
+
+
+        String insertNewBookSql = "insert into book(name, category_id, author_id, amount, create_day) values('" + bookDTO.getBookName() + "', " + categoryId + "," + authorId +"," + bookDTO.getQuantity() + ",'" + bookDTO.getPublishDate() + "')";
+        executeQuery.executeUpdate(insertNewBookSql);
+//        System.out.println(insertNewBookSql);
+        AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Thêm sách mới thành công");
+
+
 
     }
 
     private boolean isExisted(String key, String value, String table) throws SQLException {
         String checkExistSql = "SELECT COUNT(*) FROM " + table +" WHERE " + key + " = '" + value +"'";
-        System.out.println(checkExistSql);
         ResultSet resultSet = executeQuery.executeQuery(checkExistSql);
         if (resultSet.next()) {
             int count = resultSet.getInt(1);
@@ -87,4 +105,17 @@ public class AddBookServices {
         }
         return false;
     }
+
+    private int findIdByName(String column, String value, String table, String clause) throws SQLException {
+        String findIdByNameSql = "Select " + column + " from " + table + " where " + clause + " = '" + value +"'";
+        ResultSet resultSet = executeQuery.executeQuery(findIdByNameSql);
+
+        if(resultSet.next()) {
+            return resultSet.getInt(1);
+        }
+        return 0;
+
+    }
+
+
 }

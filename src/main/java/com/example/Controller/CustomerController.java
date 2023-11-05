@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static com.example.Helper.AlertHelper.showAlert;
@@ -188,6 +189,6 @@ public class CustomerController implements Initializable {
 
 
     public void onClickHistory(ActionEvent actionEvent) throws IOException {
-        App.setRootPop("/com/example/QuanLyMuonSachFrm","Danh sách đã mượn", false);
+        App.setRootPop("/com/example/QuanLyMuonSachFrm","Danh sách đã mượn", false, Optional.empty());
     }
 }

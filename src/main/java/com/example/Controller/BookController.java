@@ -4,6 +4,7 @@ import com.example.App;
 import com.example.DTO.BookDTO;
 import com.example.Service.BookService;
 import com.example.Helper.TableHelper;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,11 +14,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public class BookController implements Initializable {
     @FXML
@@ -33,20 +39,21 @@ public class BookController implements Initializable {
     @FXML
     private TextField txtQuantity;
     @FXML
-    private TableView tbBook;
+    private TableView<BookDTO> tbBook;
     @FXML
-    private TableColumn colId;
+    private TableColumn<BookDTO,Integer> colId;
     @FXML
-    private TableColumn colBookName;
+    private TableColumn<BookDTO, String> colBookName;
     @FXML
-    private TableColumn colAuthorName;
+    private TableColumn<BookDTO, String> colAuthorName;
     @FXML
-    private TableColumn colCategoryName;
+    private TableColumn<BookDTO, String> colCategoryName;
     @FXML
-    private TableColumn colPublishDate;
+    private TableColumn<BookDTO, LocalDate> colPublishDate;
     @FXML
-    private TableColumn colQuantity;
+    private TableColumn<BookDTO, Integer> colQuantity;
     private BookService bookService;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -58,6 +65,8 @@ public class BookController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+
     }
 
     private void setCell() {
@@ -85,6 +94,17 @@ public class BookController implements Initializable {
     }
 
     public void onClickAdd(ActionEvent actionEvent) throws IOException {
-        App.setRootPop("/com/example/popupAddBook","Danh Thêm sách mới", false);
+        App.setRootPop("/com/example/popupAddBook", "Danh Thêm sách mới", false, Optional.of(event -> {
+            try {
+                tbBook.setItems(bookService.bookData());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }));
+
     }
+
+
+
+
 }

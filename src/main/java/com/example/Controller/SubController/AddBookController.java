@@ -68,5 +68,6 @@ public class AddBookController implements Initializable {
                 Integer.parseInt(txtQuantity.getText()),
                 dpPublishDate.getValue()
         );
+
     }
 }

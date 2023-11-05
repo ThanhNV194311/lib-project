@@ -28,7 +28,8 @@ public class BookService {
                 "    author a ON b.author_id = a.author_id\n" +
                 "JOIN\n" +
                 "    category c ON b.category_id = c.category_id\n" +
-                "where b.is_delete = '0';";
+                "WHERE b.is_delete = '0'\n" +
+                "ORDER BY b.book_id ASC;";
         ResultSet resultSet = executeQuery.executeQuery(getAllBookSql);
 
         while (resultSet.next()){
