@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -31,6 +32,10 @@ public class BookController implements Initializable {
     public TextField txtCategory;
     public Button btnAddCategory;
     public Button btnAddAuthor;
+    public RadioButton rAuthor;
+    public RadioButton rCategory;
+    public ComboBox cbFilter;
+    public RadioButton rNone;
     @FXML
     private TextField txtIdBook;
 
@@ -162,5 +167,30 @@ public class BookController implements Initializable {
     public void onClickAddCategory(ActionEvent actionEvent) {
         bookService.toggleVisibilityAndButton(btnAddCategory, flag1, cbCategory, txtCategory, "Thêm thể loại", "Huỷ", "Chọn thể loại");
         flag1 = !flag1;
+    }
+
+
+
+    public void search(KeyEvent keyEvent) throws SQLException {
+        String keyword = keyEvent.getText();
+        tbBook.setItems(bookService.search(keyword, bookService.bookData()));
+    }
+
+    public void onFilterSelected(ActionEvent actionEvent) {
+        String filter = cbFilter.getValue().toString();
+        tbBook.setItems(bookService.filter(filter));
+    }
+
+    public void getListForFilter(ActionEvent actionEvent) throws SQLException {
+        if(rAuthor.isSelected()){
+            cbFilter.setItems(bookService.listAuthor());
+        } else if(rCategory.isSelected()) {
+            cbFilter.setItems(bookService.listCategory());
+        } else {
+            cbFilter.setItems(null);
+            cbFilter.setPromptText("<None>");
+            tbBook.setItems(bookService.bookData());
+        }
+
     }
 }

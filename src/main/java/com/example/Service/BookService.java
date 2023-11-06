@@ -5,6 +5,7 @@ import com.example.Helper.AlertHelper;
 import com.example.Utils.ExecuteQuery;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -161,5 +162,61 @@ public class BookService {
 
     }
 
+    public FilteredList<BookDTO> search(String keyword, ObservableList<BookDTO> books) {
+        FilteredList<BookDTO> filteredData = new FilteredList<>(books, p -> true);
+        if (!keyword.isEmpty()) {
+            String lowerCaseKeyword = keyword.toLowerCase();
 
+            filteredData.setPredicate(book -> {
+                String bookName = book.getBookName().toLowerCase();
+                String authorName = book.getAuthorName().toLowerCase();
+                String categoryName = book.getCategoryName().toLowerCase();
+
+
+                return bookName.contains(lowerCaseKeyword)
+                        || authorName.contains(lowerCaseKeyword)
+                        || categoryName.contains(lowerCaseKeyword);
+            });
+
+        }
+        return filteredData;
+    }
+
+    public ObservableList<BookDTO> filter(String filter) {
+        ObservableList<BookDTO> result = FXCollections.observableArrayList();
+        String filterSql = "SELECT\n" +
+                "    b.book_id AS BookID,\n" +
+                "    b.name AS BookName,\n" +
+                "    a.name AS AuthorName,\n" +
+                "    c.name AS CategoryName,\n" +
+                "    b.create_day AS PublishDate,\n" +
+                "    b.amount AS Quantity\n" +
+                "FROM\n" +
+                "    book b\n" +
+                "JOIN\n" +
+                "    author a ON b.author_id = a.author_id\n" +
+                "JOIN\n" +
+                "    category c ON b.category_id = c.category_id\n" +
+                "WHERE b.is_delete = '0' AND c.name = '" + filter + "'\n" +
+                "ORDER BY b.book_id ASC;";
+        ResultSet resultSet = executeQuery.executeQuery(filterSql);
+
+        try {
+            while (resultSet.next()){
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                BookDTO bookDTO = new BookDTO(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getDate(5).toLocalDate(),
+                        resultSet.getInt(6)
+                );
+                result.add(bookDTO);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
+    }
 }
