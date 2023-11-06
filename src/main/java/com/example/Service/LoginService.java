@@ -1,6 +1,7 @@
 package com.example.Service;
 
 
+import com.example.Helper.AlertHelper;
 import com.example.Utils.ExecuteQuery;
 
 import java.sql.PreparedStatement;
@@ -17,7 +18,6 @@ public class LoginService {
         if(!checkAccount(username, password)){
             return 1;
         }
-
         return 2;
 
     }
@@ -29,6 +29,7 @@ public class LoginService {
             int count = resultSet.getInt(1);
             return count > 0;
         }
+
         return false;
     }
 

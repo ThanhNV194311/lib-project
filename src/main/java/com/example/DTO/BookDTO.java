@@ -5,14 +5,14 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 
 public class BookDTO {
-    private int bookId;
+    private String bookId;
     private String bookName;
     private String authorName;
     private String categoryName;
     private LocalDate publishDate;
     private int quantity;
 
-    public BookDTO(int bookId, String bookName, String authorName, String categoryName, LocalDate publishDate, int quantity) {
+    public BookDTO(String bookId, String bookName, String authorName, String categoryName, LocalDate publishDate, int quantity) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.authorName = authorName;
@@ -29,11 +29,11 @@ public class BookDTO {
         this.quantity = quantity;
     }
 
-    public int getBookId() {
+    public String getBookId() {
         return bookId;
     }
 
-    public void setBookId(int bookId) {
+    public void setBookId(String bookId) {
         this.bookId = bookId;
     }
 
