@@ -13,14 +13,13 @@ import javafx.scene.control.TextField;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class BookService {
     ExecuteQuery executeQuery = ExecuteQuery.getInstance();
 
-    public ObservableList<BookDTO> bookData() throws SQLException {
+    public ObservableList<BookDTO> getBookData() throws SQLException {
         ObservableList<BookDTO> result = FXCollections.observableArrayList();
         String getAllBookSql = "SELECT\n" +
                 "    b.book_id AS BookID,\n" +
@@ -182,41 +181,25 @@ public class BookService {
         return filteredData;
     }
 
-    public ObservableList<BookDTO> filter(String filter) {
-        ObservableList<BookDTO> result = FXCollections.observableArrayList();
-        String filterSql = "SELECT\n" +
-                "    b.book_id AS BookID,\n" +
-                "    b.name AS BookName,\n" +
-                "    a.name AS AuthorName,\n" +
-                "    c.name AS CategoryName,\n" +
-                "    b.create_day AS PublishDate,\n" +
-                "    b.amount AS Quantity\n" +
-                "FROM\n" +
-                "    book b\n" +
-                "JOIN\n" +
-                "    author a ON b.author_id = a.author_id\n" +
-                "JOIN\n" +
-                "    category c ON b.category_id = c.category_id\n" +
-                "WHERE b.is_delete = '0' AND c.name = '" + filter + "'\n" +
-                "ORDER BY b.book_id ASC;";
-        ResultSet resultSet = executeQuery.executeQuery(filterSql);
 
-        try {
-            while (resultSet.next()){
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                BookDTO bookDTO = new BookDTO(
-                        resultSet.getString(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getString(4),
-                        resultSet.getDate(5).toLocalDate(),
-                        resultSet.getInt(6)
-                );
-                result.add(bookDTO);
+    public ObservableList<BookDTO> filter(String filter, String type) throws SQLException {
+        ObservableList<BookDTO> bookData = getBookData();
+        ObservableList<BookDTO> result = FXCollections.observableArrayList();
+        if (type.equals("author")) {
+            for (BookDTO bookDTO : bookData) {
+                if (bookDTO.getAuthorName().equals(filter)) {
+                    result.add(bookDTO);
+                }
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } else if (type.equals("category")) {
+            for (BookDTO bookDTO : bookData) {
+                if (bookDTO.getCategoryName().equals(filter)) {
+                    result.add(bookDTO);
+                }
+            }
         }
+
         return result;
+
     }
 }

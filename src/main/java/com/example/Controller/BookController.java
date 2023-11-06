@@ -1,12 +1,10 @@
 package com.example.Controller;
 
-import com.example.App;
 import com.example.DTO.BookDTO;
 import com.example.Helper.AlertHelper;
 import com.example.Service.BookService;
 import com.example.Helper.TableHelper;
 import com.example.Utils.ExportToExcel;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,15 +13,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 public class BookController implements Initializable {
     public ComboBox<String> cbAuthor;
@@ -34,7 +28,7 @@ public class BookController implements Initializable {
     public Button btnAddAuthor;
     public RadioButton rAuthor;
     public RadioButton rCategory;
-    public ComboBox cbFilter;
+    public ComboBox<String> cbFilter;
     public RadioButton rNone;
     @FXML
     private TextField txtIdBook;
@@ -65,6 +59,7 @@ public class BookController implements Initializable {
     private boolean flag1 = false;
 
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setCell();
@@ -78,7 +73,16 @@ public class BookController implements Initializable {
         }
 
         try {
-            TableHelper.showOnTable(tbBook, bookService.bookData(),colId,colBookName,colAuthorName,colCategoryName,colPublishDate,colQuantity);
+            TableHelper.showOnTable(
+                    tbBook,
+                    bookService.getBookData(),
+                    colId,
+                    colBookName,
+                    colAuthorName,
+                    colCategoryName,
+                    colPublishDate,
+                    colQuantity
+            );
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -130,7 +134,7 @@ public class BookController implements Initializable {
                 dpPublishDate.getValue()
         );
 
-        tbBook.setItems(bookService.bookData());
+        tbBook.setItems(bookService.getBookData());
 
     }
 
@@ -141,7 +145,7 @@ public class BookController implements Initializable {
         } else {
 
             bookService.deleteBook(bookDTOSelected.getBookId());
-            tbBook.setItems(bookService.bookData());
+            tbBook.setItems(bookService.getBookData());
         }
 
         // them clear text field
@@ -173,12 +177,22 @@ public class BookController implements Initializable {
 
     public void search(KeyEvent keyEvent) throws SQLException {
         String keyword = keyEvent.getText();
-        tbBook.setItems(bookService.search(keyword, bookService.bookData()));
+        tbBook.setItems(bookService.search(keyword, bookService.getBookData()));
     }
 
-    public void onFilterSelected(ActionEvent actionEvent) {
-        String filter = cbFilter.getValue().toString();
-        tbBook.setItems(bookService.filter(filter));
+    public void onFilterSelected(ActionEvent actionEvent) throws SQLException {
+        String filter = cbFilter.getValue();
+        if (filter == null) {
+            return;
+        }
+
+        String filterType = rAuthor.isSelected() ? "author" : rCategory.isSelected() ? "category" : "";
+
+        if (!filterType.isEmpty()) {
+            tbBook.setItems(bookService.filter(filter, filterType));
+        } else {
+            tbBook.setItems(bookService.getBookData());
+        }
     }
 
     public void getListForFilter(ActionEvent actionEvent) throws SQLException {
@@ -189,7 +203,7 @@ public class BookController implements Initializable {
         } else {
             cbFilter.setItems(null);
             cbFilter.setPromptText("<None>");
-            tbBook.setItems(bookService.bookData());
+            tbBook.setItems(bookService.getBookData());
         }
 
     }
