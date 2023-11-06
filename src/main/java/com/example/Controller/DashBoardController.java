@@ -1,6 +1,5 @@
 package com.example.Controller;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,6 +24,7 @@ public class DashBoardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         items.add("Quản lý sách");
         items.add("Quản lý khách hàng");
+        items.add("Thống kê");
         listMenu.setItems(items);
 
         listMenu.getSelectionModel().selectFirst();
@@ -44,6 +44,10 @@ public class DashBoardController implements Initializable {
                 break;
             case "Quản lý khách hàng":
                 frm = "/com/example/QuanLyKhachHangFrm.fxml";
+                break;
+
+            case "Thống kê":
+                frm = "/com/example/ThongKeFrm.fxml";
                 break;
             default:
                 frm = "com/example/QuanLySachFrm.fxml";
