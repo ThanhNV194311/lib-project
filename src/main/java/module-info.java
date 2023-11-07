@@ -16,7 +16,6 @@ module com.example {
     exports com.example.Common;
     exports com.example.Exception;
 
-
     opens com.example to javafx.fxml;
     opens com.example.Controller to javafx.fxml;
     opens com.example.DTO to javafx.fxml;

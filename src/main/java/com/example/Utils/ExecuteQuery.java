@@ -24,7 +24,7 @@ public class ExecuteQuery {
     }
 
     public static ExecuteQuery getInstance() {
-        if (instance == null) {
+        if(instance == null) {
             synchronized (ExecuteQuery.class) {
                 if (instance == null) {
                     instance = new ExecuteQuery();
@@ -53,6 +53,5 @@ public class ExecuteQuery {
             e.printStackTrace();
         }
     }
-
 
 }

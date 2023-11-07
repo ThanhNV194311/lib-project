@@ -26,6 +26,7 @@ public class DashBoardController implements Initializable {
         items.add("Quản lý sách");
         items.add("Quản lý khách hàng");
         items.add("Quản lý mượn trả sách");
+        items.add("Thống kê");
         listMenu.setItems(items);
 
         listMenu.getSelectionModel().selectFirst();
@@ -48,6 +49,9 @@ public class DashBoardController implements Initializable {
                 break;
             case "Quản lý mượn trả sách":
                 frm = "/com/example/QuanLyMuonTraFrm.fxml";
+                break;
+            case "Thống kê":
+                frm = "/com/example/ThongKeFrm.fxml";
                 break;
             default:
                 frm = "com/example/QuanLySachFrm.fxml";

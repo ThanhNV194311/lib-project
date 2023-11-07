@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="848.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.StatisticsController">
+   <children>
+      <TextArea layoutX="619.0" layoutY="48.0" prefHeight="102.0" prefWidth="200.0" style="-fx-background-color: yellow;" />
+      <TextArea layoutX="324.0" layoutY="48.0" prefHeight="102.0" prefWidth="200.0" style="-fx-background-color: green;" />
+      <TextArea layoutX="46.0" layoutY="51.0" prefHeight="102.0" prefWidth="200.0" style="-fx-background-color: blue;" />
+      <Text fx:id="txtSoLuongKhach" layoutX="82.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="135.47002410888672">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtSoSachDangMuon" layoutX="651.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="135.47002410888672">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtSoLuongSach" layoutX="356.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="135.47002410888672">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Text>
+      <Text layoutX="67.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Khách hàng">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="629.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số sách đang được mượn">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="348.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số sách hiện tại">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
