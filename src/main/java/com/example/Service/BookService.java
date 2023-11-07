@@ -18,9 +18,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class BookService {
-    ExecuteQuery executeQuery = ExecuteQuery.getInstance();
+    static ExecuteQuery executeQuery = ExecuteQuery.getInstance();
 
-    public ObservableList<BookDTO> bookData() throws SQLException {
+    public static ObservableList<BookDTO> getBookData() throws SQLException {
         ObservableList<BookDTO> result = FXCollections.observableArrayList();
         String getAllBookSql = "SELECT\n" +
                 "    b.book_id AS BookID,\n" +
@@ -197,7 +197,7 @@ public class BookService {
     }
 
     public ObservableList<BookDTO> filter(String filter, String type) throws SQLException {
-        ObservableList<BookDTO> bookData = bookData();
+        ObservableList<BookDTO> bookData = BookService.getBookData();
         ObservableList<BookDTO> result = FXCollections.observableArrayList();
         if (type.equals("author")) {
             for (BookDTO bookDTO : bookData) {

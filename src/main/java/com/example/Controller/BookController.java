@@ -6,7 +6,6 @@ import com.example.Helper.AlertHelper;
 import com.example.Service.BookService;
 import com.example.Helper.TableHelper;
 import com.example.Utils.ExportToExcel;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,11 +27,8 @@ public class BookController implements Initializable {
     public TextField txtCategory;
     public Button btnAddCategory;
     public Button btnAddAuthor;
-
     public Button btnUpdate, btnAdd;
-
     public Button btnSaveUpdate, btnSaveAdd, btnCancelUpdate, btnCancelAdd, btnDelete, btnExport;
-
     public RadioButton rAuthor;
     public RadioButton rCategory;
     public ComboBox<String> cbFilter;
@@ -83,7 +79,7 @@ public class BookController implements Initializable {
         try {
             TableHelper.showOnTable(
                     tbBook,
-                    bookService.bookData(),
+                    bookService.getBookData(),
                     colId,
                     colBookName,
                     colAuthorName,
@@ -166,7 +162,7 @@ public class BookController implements Initializable {
                 quantityInt,
                 dpPublishDate.getValue());
 
-        tbBook.setItems(bookService.bookData());
+        tbBook.setItems(bookService.getBookData());
 
         setDefaultStateButton();
 
@@ -179,7 +175,7 @@ public class BookController implements Initializable {
         } else {
 
             bookService.deleteBook(bookDTOSelected.getBookId());
-            tbBook.setItems(bookService.bookData());
+            tbBook.setItems(bookService.getBookData());
         }
 
     }
@@ -239,7 +235,7 @@ public class BookController implements Initializable {
                     newPublishDate);
 
             // Refresh the table view with updated data
-            tbBook.setItems(bookService.bookData());
+            tbBook.setItems(bookService.getBookData());
 
             // Show a success message
             AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Cập nhật sách thành công");
@@ -296,11 +292,13 @@ public class BookController implements Initializable {
             return false;
         }
 
-        return true;
+    return true;
+
     }
+
     public void search(KeyEvent keyEvent) throws SQLException {
         String keyword = keyEvent.getText();
-        tbBook.setItems(bookService.search(keyword, bookService.bookData()));
+        tbBook.setItems(bookService.search(keyword, bookService.getBookData()));
     }
 
     public void onFilterSelected(ActionEvent actionEvent) throws SQLException {
@@ -314,7 +312,9 @@ public class BookController implements Initializable {
         if (!filterType.isEmpty()) {
             tbBook.setItems(bookService.filter(filter, filterType));
         } else {
-            tbBook.setItems(bookService.bookData());
+      
+
+         tbBook.setItems(bookService.getBookData());
         }
     }
 
@@ -323,11 +323,8 @@ public class BookController implements Initializable {
             cbFilter.setItems(bookService.listAuthor());
         } else if (rCategory.isSelected()) {
             cbFilter.setItems(bookService.listCategory());
-        } else {
-            cbFilter.setItems(null);
-            cbFilter.setPromptText("<None>");
-            tbBook.setItems(bookService.bookData());
         }
-
-    }
+            tbBook.setItems(bookService.getBookData());
+        }
 }
+
