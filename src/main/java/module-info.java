@@ -10,18 +10,14 @@ module com.example {
     exports com.example.Models;
     exports com.example.DTO;
     exports com.example;
-    exports com.example.Controller.SubController;
-    exports com.example.Service.SubServices;
+
     exports com.example.Helper;
     exports com.example.Utils;
     exports com.example.Common;
     exports com.example.Exception;
 
-
     opens com.example to javafx.fxml;
     opens com.example.Controller to javafx.fxml;
-    opens com.example.Controller.SubController to javafx.fxml;
-    opens com.example.Service.SubServices to javafx.fxml;
     opens com.example.DTO to javafx.fxml;
     opens com.example.Helper to javafx.fxml;
     opens com.example.Utils to javafx.fxml;

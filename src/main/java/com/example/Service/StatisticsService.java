@@ -1,8 +1,9 @@
 package com.example.Service;
 
+import com.example.Utils.ExecuteQuery;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import com.example.Utils.ExecuteQuery; // Import your database utility class
 
 public class StatisticsService {
     ExecuteQuery executeQuery = ExecuteQuery.getInstance();

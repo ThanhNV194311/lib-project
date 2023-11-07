@@ -1,9 +1,10 @@
 package com.example.Controller;
 
+import com.example.Service.StatisticsService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
-import com.example.Service.StatisticsService;
+
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;

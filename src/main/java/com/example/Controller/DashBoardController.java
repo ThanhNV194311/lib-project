@@ -1,5 +1,6 @@
 package com.example.Controller;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -45,7 +46,6 @@ public class DashBoardController implements Initializable {
             case "Quản lý khách hàng":
                 frm = "/com/example/QuanLyKhachHangFrm.fxml";
                 break;
-
             case "Thống kê":
                 frm = "/com/example/ThongKeFrm.fxml";
                 break;

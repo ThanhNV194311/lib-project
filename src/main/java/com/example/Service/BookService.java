@@ -1,12 +1,11 @@
 package com.example.Service;
 
 import com.example.DTO.BookDTO;
-import com.example.Exception.IsExistedException;
-
 import com.example.Helper.AlertHelper;
 import com.example.Utils.ExecuteQuery;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -14,8 +13,8 @@ import javafx.scene.control.TextField;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDate;
+
 import java.time.format.DateTimeFormatter;
 
 public class BookService {
@@ -24,7 +23,7 @@ public class BookService {
     public ObservableList<BookDTO> bookData() throws SQLException {
         ObservableList<BookDTO> result = FXCollections.observableArrayList();
         String getAllBookSql = "SELECT\n" +
-                "    b.id AS BookID,\n" +
+                "    b.book_id AS BookID,\n" +
                 "    b.name AS BookName,\n" +
                 "    a.name AS AuthorName,\n" +
                 "    c.name AS CategoryName,\n" +
@@ -37,38 +36,37 @@ public class BookService {
                 "JOIN\n" +
                 "    category c ON b.category_id = c.category_id\n" +
                 "WHERE b.is_delete = '0'\n" +
-                "ORDER BY b.id ASC;";
+                "ORDER BY b.book_id ASC;";
         ResultSet resultSet = executeQuery.executeQuery(getAllBookSql);
 
-        while (resultSet.next()){
+        while (resultSet.next()) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             BookDTO bookDTO = new BookDTO(
-              resultSet.getString(1),
-              resultSet.getString(2),
-              resultSet.getString(3),
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
                     resultSet.getString(4),
                     resultSet.getDate(5).toLocalDate(),
-                    resultSet.getInt(6)
-            );
+                    resultSet.getInt(6));
             result.add(bookDTO);
         }
         return result;
     }
 
-    public void deleteBook(String bookId){
-        String deleteBookSql = "Update book set is_delete = 1 where id = '" + bookId + "'";
-        if(AlertHelper.showConfirmation("Bạn có chắc chắn muốn xoá")){
+    public void deleteBook(String bookId) {
+        String deleteBookSql = "Update book set is_delete = 1 where book_id = '" + bookId + "'";
+        if (AlertHelper.showConfirmation("Bạn có chắc chắn muốn xoá")) {
             executeQuery.executeUpdate(deleteBookSql);
             AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Xoá sách thành công");
         }
     }
 
-    public ObservableList<String> listCategory() throws SQLException{
+    public ObservableList<String> listCategory() throws SQLException {
         ObservableList<String> result = FXCollections.observableArrayList();
         String getAllCategorySql = "Select * from category";
         ResultSet resultSet = executeQuery.executeQuery(getAllCategorySql);
 
-        while (resultSet.next()){
+        while (resultSet.next()) {
             result.add(resultSet.getString(2));
         }
 
@@ -80,15 +78,15 @@ public class BookService {
         String getAllAuthorSql = "Select * from author";
         ResultSet resultSet = executeQuery.executeQuery(getAllAuthorSql);
 
-        while (resultSet.next()){
+        while (resultSet.next()) {
             result.add(resultSet.getString(2));
         }
 
         return result;
     }
 
-
-    public void toggleVisibilityAndButton(Button button, boolean flag, ComboBox cb, TextField txt, String buttonText1, String buttonText2, String comboBoxPromptText) {
+    public void toggleVisibilityAndButton(Button button, boolean flag, ComboBox cb, TextField txt, String buttonText1,
+            String buttonText2, String comboBoxPromptText) {
         if (flag) {
             cb.setVisible(true);
             txt.setVisible(false);
@@ -103,58 +101,47 @@ public class BookService {
         }
     }
 
-
-    public void addNewBook(String bookName, String authorNameTxt, String authorNameCb, String categoryTxt, String categoryCb, int quantityText, LocalDate publishDate) throws SQLException, IsExistedException {
+    public void addNewBook(String bookId, String bookName, String authorNameTxt, String authorNameCb,
+            String categoryTxt, String categoryCb, int quantityText, LocalDate publishDate) throws SQLException {
+        // System.out.println("cb "+authorNameCb);
+        // System.out.println("txt " + authorNameTxt);
         String selectedAuthorName = authorNameCb != null ? authorNameCb : authorNameTxt;
         String selectedCategoryName = categoryCb != null ? categoryCb : categoryTxt;
-        if (isBookAlreadyExists(bookName, selectedAuthorName, selectedCategoryName)) {
-            throw new IsExistedException("Sách đã tồn tại, vui lòng nhập đúng thông tin");
-        }
-        BookDTO bookDTO = new BookDTO(bookName, selectedAuthorName, selectedCategoryName, quantityText, publishDate);
 
-        if (!isExisted("name", bookDTO.getAuthorName(), "author")) {
-            // Author doesn't exist; insert a new one
-            String insertAuthorSql = "INSERT INTO author(name) VALUES('" + bookDTO.getAuthorName() + "')";
+        BookDTO bookDTO = new BookDTO(bookName, selectedAuthorName, selectedCategoryName, quantityText, publishDate);
+        // System.out.println(bookDTO.toString());
+        if (!isExisted("name", bookDTO.getAuthorName(), "author")) { // neu khong co thi them
+            System.out.println("add author");
+            String insertAuthorSql = "Insert into author(name) values('" + bookDTO.getAuthorName() + "')";
+            // System.out.println(insertAuthorSql);
             executeQuery.executeUpdate(insertAuthorSql);
         }
 
-        if (!isExisted("name", bookDTO.getCategoryName(), "category")) {
-            // Category doesn't exist; insert a new one
-            String insertCategorySql = "INSERT INTO category(name) VALUES('" + bookDTO.getCategoryName() + "')";
+        if (!isExisted("name", bookDTO.getCategoryName(), "category")) { // neu khong co thi them
+            System.out.println("add category");
+            String insertCategorySql = "Insert into category(name) values('" + bookDTO.getCategoryName() + "')";
+            // System.out.println(insertCategorySql);
             executeQuery.executeUpdate(insertCategorySql);
         }
 
-        // Insert the new book; the auto-increment `book_id` will be generated automatically
-        String insertNewBookSql = "INSERT INTO book(name, category_id, author_id, amount, create_day) VALUES('" + bookName + "', " +
-                "(SELECT author_id FROM author WHERE name = '" + bookDTO.getAuthorName() + "'), " +
-                "(SELECT category_id FROM category WHERE name = '" + bookDTO.getCategoryName() + "'), " +
-                quantityText + ", '" + publishDate + "')";
+        // System.out.println(findIdByName("author_id",bookDTO.getAuthorName(),
+        // "author", "name"));
+
+        int authorId = findIdByName("author_id", bookDTO.getAuthorName(), "author", "name");
+
+        int categoryId = findIdByName("category_id", bookDTO.getCategoryName(), "category", "name");
+
+        String insertNewBookSql = "insert into book(book_id ,name, category_id, author_id, amount, create_day) values('"
+                + bookId + "','" + bookDTO.getBookName() + "', " + categoryId + "," + authorId + ","
+                + bookDTO.getQuantity() + ",'" + bookDTO.getPublishDate() + "')";
         executeQuery.executeUpdate(insertNewBookSql);
+        // System.out.println(insertNewBookSql);
+        AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Thêm sách mới thành công");
 
-        // Show a success message with the formatted book ID
-        AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Thêm sách mới thành công.");
     }
-
-
-
-    private boolean isBookAlreadyExists(String bookName, String authorName, String categoryName) throws SQLException {
-        String checkExistSql = "SELECT COUNT(*) FROM book b " +
-                "JOIN author a ON b.author_id = a.author_id " +
-                "JOIN category c ON b.category_id = c.category_id " +
-                "WHERE b.name = '" + bookName + "' " +
-                "AND a.name = '" + authorName + "' " +
-                "AND c.name = '" + categoryName + "'";
-        ResultSet resultSet = executeQuery.executeQuery(checkExistSql);
-        if (resultSet.next()) {
-            int count = resultSet.getInt(1);
-            return count > 0;
-        }
-        return false;
-    }
-
 
     private boolean isExisted(String key, String value, String table) throws SQLException {
-        String checkExistSql = "SELECT COUNT(*) FROM " + table +" WHERE " + key + " = '" + value +"'";
+        String checkExistSql = "SELECT COUNT(*) FROM " + table + " WHERE " + key + " = '" + value + "'";
         ResultSet resultSet = executeQuery.executeQuery(checkExistSql);
         if (resultSet.next()) {
             int count = resultSet.getInt(1);
@@ -163,56 +150,70 @@ public class BookService {
         return false;
     }
 
-    private int findIdByName(String column, String value, String table, String clause) throws SQLException {
-        String findIdByNameSql = "Select " + column + " from " + table + " where " + clause + " = '" + value +"'";
+    public int findIdByName(String name, String value, String table, String clause) throws SQLException {
+        String findIdByNameSql = "Select " + name + " from " + table + " where " + clause + " = '" + value + "'";
         ResultSet resultSet = executeQuery.executeQuery(findIdByNameSql);
 
-        if(resultSet.next()) {
+        if (resultSet.next()) {
             return resultSet.getInt(1);
         }
+
         return 0;
-
     }
-    public void updateBook(String bookId, String bookName, String authorNameTxt, String authorNameCb, String categoryTxt, String categoryCb, int quantityText, LocalDate publishDate) throws SQLException {
-        try {
-            // Determine the author name and category name to use based on user input
-            String selectedAuthorName = authorNameCb != null ? authorNameCb : authorNameTxt;
-            String selectedCategoryName = categoryCb != null ? categoryCb : categoryTxt;
 
-            // Check if the selected author and category already exist; if not, insert them
-            int authorId = findIdByName("author_id", selectedAuthorName, "author", "name");
-            if (authorId == 0) {
-                // Author doesn't exist; insert a new one
-                String insertAuthorSql = "INSERT INTO author(name) VALUES('" + selectedAuthorName + "')";
-                executeQuery.executeUpdate(insertAuthorSql);
-                authorId = findIdByName("author_id", selectedAuthorName, "author", "name");
-            }
+    public void updateBook(int id, String newBookId, String newBookName, String newAuthorName, String newCategoryName,
+            int newQuantity, LocalDate newPublishDate) throws SQLException {
+        // Get the author and category IDs based on their names
+        int authorId = findIdByName("author_id", newAuthorName, "author", "name");
+        int categoryId = findIdByName("category_id", newCategoryName, "category", "name");
 
-            int categoryId = findIdByName("category_id", selectedCategoryName, "category", "name");
-            if (categoryId == 0) {
-                // Category doesn't exist; insert a new one
-                String insertCategorySql = "INSERT INTO category(name) VALUES('" + selectedCategoryName + "')";
-                executeQuery.executeUpdate(insertCategorySql);
-                categoryId = findIdByName("category_id", selectedCategoryName, "category", "name");
-            }
+        // Create an SQL UPDATE statement
+        String updateBookSql = "UPDATE book SET book_id = '" + newBookId + "', name = '" + newBookName
+                + "', category_id = " + categoryId + ", author_id = " + authorId + ", amount = " + newQuantity
+                + ", create_day = '" + newPublishDate + "' WHERE id = " + id + " ";
+        System.out.println("string sql: " + updateBookSql);
+        // Execute the SQL statement using a prepared statement
+        executeQuery.executeUpdate(updateBookSql);
+        AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, " Cập nhật thành công");
+    }
 
-            // Update the book's information in the database
-            String updateBookSql = "UPDATE book SET " +
-                    "name = '" + bookName + "', " +
-                    "author_id = " + authorId + ", " +
-                    "category_id = " + categoryId + ", " +
-                    "amount = " + quantityText + ", " +
-                    "create_day = '" + publishDate + "' " +
-                    "WHERE id = '" + bookId + "'";
-            executeQuery.executeUpdate(updateBookSql);
+    public FilteredList<BookDTO> search(String keyword, ObservableList<BookDTO> books) {
+        FilteredList<BookDTO> filteredData = new FilteredList<>(books, p -> true);
+        if (!keyword.isEmpty()) {
+            String lowerCaseKeyword = keyword.toLowerCase();
 
-            // Show a success message
-            AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Cập nhật sách thành công");
-        } catch (SQLException e) {
-            throw new SQLException("Lỗi khi cập nhật sách: " + e.getMessage());
+            filteredData.setPredicate(book -> {
+                String bookName = book.getBookName().toLowerCase();
+                String authorName = book.getAuthorName().toLowerCase();
+                String categoryName = book.getCategoryName().toLowerCase();
+
+                return bookName.contains(lowerCaseKeyword)
+                        || authorName.contains(lowerCaseKeyword)
+                        || categoryName.contains(lowerCaseKeyword);
+            });
+
         }
+        return filteredData;
     }
 
+    public ObservableList<BookDTO> filter(String filter, String type) throws SQLException {
+        ObservableList<BookDTO> bookData = bookData();
+        ObservableList<BookDTO> result = FXCollections.observableArrayList();
+        if (type.equals("author")) {
+            for (BookDTO bookDTO : bookData) {
+                if (bookDTO.getAuthorName().equals(filter)) {
+                    result.add(bookDTO);
+                }
+            }
+        } else if (type.equals("category")) {
+            for (BookDTO bookDTO : bookData) {
+                if (bookDTO.getCategoryName().equals(filter)) {
+                    result.add(bookDTO);
+                }
+            }
+        }
 
+        return result;
 
+    }
 }
