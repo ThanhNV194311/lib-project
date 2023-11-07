@@ -28,7 +28,7 @@ public class BookController implements Initializable {
     public Button btnAddCategory;
     public Button btnAddAuthor;
     public Button btnUpdate, btnAdd;
-    public Button btnSaveUpdate, btnSaveAdd, btnCancelUpdate, btnCancelAdd, btnDelete, btnExport;
+    public Button btnDelete, btnExport;
     public RadioButton rAuthor;
     public RadioButton rCategory;
     public ComboBox<String> cbFilter;
@@ -65,10 +65,6 @@ public class BookController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setCell();
         bookService = new BookService();
-        btnSaveUpdate.setVisible(false);
-        btnCancelUpdate.setVisible(false);
-        btnSaveAdd.setVisible(false);
-        btnCancelAdd.setVisible(false);
         try {
             cbAuthor.setItems(bookService.listAuthor());
             cbCategory.setItems(bookService.listCategory());
@@ -92,18 +88,7 @@ public class BookController implements Initializable {
 
     }
 
-    public void setDefaultStateButton() {
-        btnUpdate.setVisible(true);
-        btnAdd.setVisible(true);
-        btnDelete.setVisible(true);
-        btnExport.setVisible(true);
-        btnUpdate.setDisable(false);
-        btnAdd.setDisable(false);
-        btnSaveUpdate.setVisible(false);
-        btnCancelUpdate.setVisible(false);
-        btnSaveAdd.setVisible(false);
-        btnCancelAdd.setVisible(false);
-    }
+
 
     private void setCell() {
         colId.setCellValueFactory(new PropertyValueFactory<>("bookId"));
@@ -115,7 +100,7 @@ public class BookController implements Initializable {
     }
 
     public void onSelected(MouseEvent mouseEvent) {
-        BookDTO selectedBook = (BookDTO) tbBook.getSelectionModel().getSelectedItem();
+        BookDTO selectedBook = tbBook.getSelectionModel().getSelectedItem();
 
         if (selectedBook != null) {
             String bookIdStr = String.valueOf(selectedBook.getBookId());
@@ -130,27 +115,6 @@ public class BookController implements Initializable {
     }
 
     public void onClickAdd(ActionEvent actionEvent) throws SQLException {
-
-        btnAdd.setDisable(true);
-        // show luu va huy
-        btnSaveAdd.setVisible(true);
-        btnCancelAdd.setVisible(true);
-        // show deleteButton , updateButton, xuat
-        btnDelete.setVisible(false);
-        btnUpdate.setVisible(false);
-        btnExport.setVisible(false);
-
-    }
-
-    public void onClickSaveAdd(ActionEvent actionEvent) throws SQLException {
-        System.out.println(txtAuthor.getText());
-        if (txtIdBook.getText().isEmpty() || txtNameBook.getText().isEmpty() || txtQuantity.getText().isEmpty()
-                || (cbAuthor.getValue() == null && txtAuthor.getText() == null)
-                || (cbCategory.getValue() == null && txtCategory.getText() == null)
-                || dpPublishDate.getValue() == null) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, "Lỗi", null, "Vui lòng điền đầy đủ thông tin.");
-            return;
-        }
         int quantityInt = Integer.parseInt(txtQuantity.getText());
         bookService.addNewBook(
                 txtIdBook.getText(),
@@ -164,25 +128,19 @@ public class BookController implements Initializable {
 
         tbBook.setItems(bookService.getBookData());
 
-        setDefaultStateButton();
-
     }
 
     public void onClickDelete(ActionEvent actionEvent) throws SQLException {
         BookDTO bookDTOSelected = tbBook.getSelectionModel().getSelectedItem();
         if (bookDTOSelected == null) {
-            return;
         } else {
 
             bookService.deleteBook(bookDTOSelected.getBookId());
-            tbBook.setItems(bookService.getBookData());
+            tbBook.setItems(BookService.getBookData());
         }
 
     }
 
-    public void onClickCancelAdd(ActionEvent actionEvent) {
-        setDefaultStateButton();
-    }
 
     public void onClickExport(ActionEvent actionEvent) {
         if (AlertHelper.showConfirmation("Bạn có muốn xuất dữ liệu ra excel không?")) {
@@ -191,19 +149,7 @@ public class BookController implements Initializable {
         }
     }
 
-    public void onClickUpdate(ActionEvent actionEvent) {
-        // disable and delete id txt va btnUpdate
-        btnUpdate.setDisable(true);
-        // show luu va huy ,
-        btnSaveUpdate.setVisible(true);
-        btnCancelUpdate.setVisible(true);
-        // hide deleteButton , addButton, xuat
-        btnDelete.setVisible(false);
-        btnAdd.setVisible(false);
-        btnExport.setVisible(false);
-    }
-
-    public void onClickSaveUpdate(ActionEvent actionEvent) throws SQLException {
+    public void onClickUpdate(ActionEvent actionEvent) throws SQLException {
         if (validateInput()) {
 
             BookDTO selectedBook = tbBook.getSelectionModel().getSelectedItem();
@@ -220,44 +166,55 @@ public class BookController implements Initializable {
 
             String newBookId = txtIdBook.getText();
             System.out.println(newBookId);
-            String newBookName = txtNameBook.getText(); // Get the new book name from your input fields
+            String newBookName = txtNameBook.getText();
             System.out.println(newBookName);
-            String newAuthorName = cbAuthor.getValue(); // Get the new author name from your input fields
+            String newAuthorName = cbAuthor.getValue();
             System.out.println(newAuthorName);
-            String newCategoryName = cbCategory.getValue(); // Get the new category name from your input fields
+            String newCategoryName = cbCategory.getValue();
             System.out.println(newCategoryName);
-            int newQuantity = Integer.parseInt(txtQuantity.getText()); // Get the new quantity from your input fields
+            int newQuantity = Integer.parseInt(txtQuantity.getText());
             System.out.println(newQuantity);
-            LocalDate newPublishDate = dpPublishDate.getValue(); // Get the new publish date from your input fields
+            LocalDate newPublishDate = dpPublishDate.getValue();
             System.out.println(newPublishDate);
-            // Call the updateBook method to update the book in the database
+
             bookService.updateBook(Id, newBookId, newBookName, newAuthorName, newCategoryName, newQuantity,
                     newPublishDate);
 
-            // Refresh the table view with updated data
             tbBook.setItems(bookService.getBookData());
 
             // Show a success message
             AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Cập nhật sách thành công");
-            setDefaultStateButton();
+
 
         }
-
     }
 
-    public void onClickCancelUpdate(ActionEvent actionEvent) {
-        setDefaultStateButton();
-    }
+
+
 
     public void onClickAddAuthor(ActionEvent actionEvent) {
-        bookService.toggleVisibilityAndButton(btnAddAuthor, flag, cbAuthor, txtAuthor, "Thêm tác giả", "Huỷ",
-                "Chọn tác giả");
+        bookService.toggleVisibilityAndButton(
+                btnAddAuthor,
+                flag,
+                cbAuthor,
+                txtAuthor,
+                "Thêm tác giả",
+                "Huỷ",
+                "Chọn tác giả"
+        );
         flag = !flag;
     }
 
     public void onClickAddCategory(ActionEvent actionEvent) {
-        bookService.toggleVisibilityAndButton(btnAddCategory, flag1, cbCategory, txtCategory, "Thêm thể loại", "Huỷ",
-                "Chọn thể loại");
+        bookService.toggleVisibilityAndButton(
+                btnAddCategory,
+                flag1,
+                cbCategory,
+                txtCategory,
+                "Thêm thể loại",
+                "Huỷ",
+                "Chọn thể loại"
+        );
         flag1 = !flag1;
     }
 

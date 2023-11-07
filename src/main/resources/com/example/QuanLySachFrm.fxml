@@ -82,7 +82,7 @@
                 <TextField fx:id="txtCategory" promptText="Điền thể loại mới" visible="false" GridPane.columnIndex="1" />
             </children>
         </GridPane>
-        <Button fx:id="btnAdd" layoutX="284.0" layoutY="491.0" mnemonicParsing="false" onAction="#onClickAdd" text="Thêm" />
+        <Button fx:id="btnAdd" layoutX="288.0" layoutY="497.0" mnemonicParsing="false" onAction="#onClickAdd" text="Thêm" />
         <Button fx:id="btnUpdate" layoutX="180.0" layoutY="491.0" mnemonicParsing="false" onAction="#onClickUpdate" prefHeight="25.0" prefWidth="46.0" text="Sửa" />
         <Button fx:id="btnDelete" layoutX="69.0" layoutY="491.0" mnemonicParsing="false" onAction="#onClickDelete" prefHeight="25.0" prefWidth="46.0" text="Xóa" />
         <Label layoutX="21.0" layoutY="14.0" text="Tìm kiếm :">
@@ -90,12 +90,8 @@
                 <Font name="System Bold" size="16.0" />
             </font>
         </Label>
-        <TextField fx:id="txtSearch" layoutX="107.0" layoutY="14.0" prefHeight="25.0" prefWidth="223.0" />
+        <TextField fx:id="txtSearch" layoutX="107.0" layoutY="14.0" onAction="#search" prefHeight="25.0" prefWidth="223.0" />
         <Button fx:id="btnExport" layoutX="421.0" layoutY="491.0" mnemonicParsing="false" onAction="#onClickExport" prefHeight="25.0" prefWidth="50.0" text="Xuất" />
-        <Button fx:id="btnSaveAdd" layoutX="266.0" layoutY="455.0" mnemonicParsing="false" onAction="#onClickSaveAdd" text="Lưu" />
-        <Button fx:id="btnCancelAdd" layoutX="311.0" layoutY="455.0" mnemonicParsing="false" onAction="#onClickCancelAdd" text="Hủy" />
-        <Button fx:id="btnSaveUpdate" layoutX="162.0" layoutY="455.0" mnemonicParsing="false" onAction="#onClickSaveUpdate" text="Lưu" />
-        <Button fx:id="btnCancelUpdate" layoutX="207.0" layoutY="455.0" mnemonicParsing="false" onAction="#onClickCancelUpdate" text="Hủy" />
       <Label layoutX="411.0" layoutY="4.0" text="Lọc:">
          <font>
             <Font name="System Bold" size="16.0" />

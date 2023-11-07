@@ -163,18 +163,17 @@ public class BookService {
 
     public void updateBook(int id, String newBookId, String newBookName, String newAuthorName, String newCategoryName,
             int newQuantity, LocalDate newPublishDate) throws SQLException {
-        // Get the author and category IDs based on their names
+
         int authorId = findIdByName("author_id", newAuthorName, "author", "name");
         int categoryId = findIdByName("category_id", newCategoryName, "category", "name");
 
-        // Create an SQL UPDATE statement
+
         String updateBookSql = "UPDATE book SET book_id = '" + newBookId + "', name = '" + newBookName
                 + "', category_id = " + categoryId + ", author_id = " + authorId + ", amount = " + newQuantity
                 + ", create_day = '" + newPublishDate + "' WHERE id = " + id + " ";
         System.out.println("string sql: " + updateBookSql);
-        // Execute the SQL statement using a prepared statement
+
         executeQuery.executeUpdate(updateBookSql);
-        AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, " Cập nhật thành công");
     }
 
     public FilteredList<BookDTO> search(String keyword, ObservableList<BookDTO> books) {
