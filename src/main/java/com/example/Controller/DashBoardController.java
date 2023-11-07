@@ -25,6 +25,7 @@ public class DashBoardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         items.add("Quản lý sách");
         items.add("Quản lý khách hàng");
+        items.add("Quản lý mượn trả sách");
         listMenu.setItems(items);
 
         listMenu.getSelectionModel().selectFirst();
@@ -44,6 +45,9 @@ public class DashBoardController implements Initializable {
                 break;
             case "Quản lý khách hàng":
                 frm = "/com/example/QuanLyKhachHangFrm.fxml";
+                break;
+            case "Quản lý mượn trả sách":
+                frm = "/com/example/QuanLyMuonTraFrm.fxml";
                 break;
             default:
                 frm = "com/example/QuanLySachFrm.fxml";

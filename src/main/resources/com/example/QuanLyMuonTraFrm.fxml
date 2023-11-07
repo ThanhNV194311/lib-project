@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="522.0" prefWidth="732.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.BorrowController">
+   <children>
+      <TableView layoutY="110.0" prefHeight="200.0" prefWidth="732.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="STT" />
+          <TableColumn prefWidth="119.11114501953125" text="Mã khách hàng" />
+            <TableColumn prefWidth="75.0" text="Mã sách" />
+            <TableColumn prefWidth="96.0" text="Ngày mượn" />
+            <TableColumn prefWidth="114.66668701171875" text="Ngày hẹn trả" />
+            <TableColumn prefWidth="160.0" text="Ngày trả" />
+            <TableColumn prefWidth="91.111083984375" text="Trạng thái" />
+        </columns>
+      </TableView>
+      <Label layoutX="31.0" layoutY="24.0" text="Tìm kiếm :">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtSearch" layoutX="117.0" layoutY="24.0" onKeyPressed="#search" prefHeight="25.0" prefWidth="223.0" />
+      <Button layoutX="71.0" layoutY="452.0" mnemonicParsing="false" text="Mượn sách" />
+      <Button layoutX="265.0" layoutY="452.0" mnemonicParsing="false" text="Trả sách" />
+      <Button layoutX="424.0" layoutY="452.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Xoá" />
+      <Button layoutX="568.0" layoutY="452.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Xuất" />
+   </children>
+</AnchorPane>
