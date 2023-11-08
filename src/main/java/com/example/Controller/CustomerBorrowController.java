@@ -11,6 +11,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import static com.example.Helper.TableHelper.showOnTable;
@@ -38,10 +41,10 @@ public class CustomerBorrowController extends TableRow<Borrow> implements Initia
     public void initialize(URL url, ResourceBundle resourceBundle) {
         borrowService = new BorrowService();
 
-
+        hightlightOutOfDate();
 
         try {
-            showOnTable(tbDetail, borrowService.getBorrowByCustomerId(customerId), colCustomerId, colBookId, colBookName, colStartDate, colEndDate, colReturnDate,colStatus);
+            showOnTable(tbDetail, borrowService.getBorrowByCustomerId(customerId), colCustomerId, colBookId, colBookName, colStartDate, colEndDate, colReturnDate, colStatus);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,6 +52,40 @@ public class CustomerBorrowController extends TableRow<Borrow> implements Initia
         setCell();
     }
 
+    private void hightlightOutOfDate() {
+        try {
+            // Lấy danh sách các bookId cần tô màu đỏ
+            List<String> outOfDateBookIds = borrowService.getOutOfDateBookIds(customerId);
+
+            // Tạo một Map để lưu trữ các bookId cần tô màu
+            Map<String, Boolean> bookIdToColor = new HashMap<>();
+            for (String bookId : outOfDateBookIds) {
+                bookIdToColor.put(bookId, true);
+            }
+
+            // Cài đặt row factory để tô màu dòng dựa trên bookId
+            tbDetail.setRowFactory(tableView -> new TableRow<Borrow>() {
+                @Override
+                protected void updateItem(Borrow item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item != null) {
+                        if (bookIdToColor.containsKey(item.getBookId())) {
+                            // Tô màu nền đỏ cho dòng có bookId cần tô màu
+                            setStyle("-fx-background-color: #CB6918;");
+                        } else {
+                            // Đặt màu nền mặc định nếu không phù hợp
+                            setStyle("");
+                        }
+                    } else {
+                        setStyle("");
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     private void setCell() {
