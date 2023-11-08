@@ -117,26 +117,27 @@ public class CustomerController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Lỗi", null, e.getMessage());
         } catch (EmailNotValidException e) {
             lbErrEmail.setText(e.getMessage());
+            return;
         } catch (PhoneNumberNotValidException e) {
            lbErrPhoneNumber.setText(e.getMessage());
+           return;
         } catch (IsExistedException e) {
-            if(e.getMessage().equals("Số điện thoại đã tồn tại trong hệ thống")){
+            if(e.getMessage().equals("*Số điện thoại đã tồn tại trong hệ thống")){
                 lbErrPhoneNumber.setText(e.getMessage());
                 return;
             }
 
-            if(e.getMessage().equals("Email đã tồn tại trong hệ thống")){
+            if(e.getMessage().equals("*Email đã tồn tại trong hệ thống")){
                 lbErrEmail.setText(e.getMessage());
                 return;
             }
 
-            if(e.getMessage().equals("Id đã tồn tại trong hệ thống")){
+            if(e.getMessage().equals("*Id đã tồn tại trong hệ thống")){
                 lbErrID.setText(e.getMessage());
                 return;
             }
         }
         tbCustomer.setItems(customerService.customersData());
-        customerService.clear(txtEmail,txtId,txtName,txtPhoneNumber);
     }
 
 
@@ -168,12 +169,12 @@ public class CustomerController implements Initializable {
             lbErrPhoneNumber.setText(e.getMessage());
             return;
         } catch (IsExistedException e) {
-           if(e.getMessage().equals("Số điện thoại đã tồn tại trong hệ thống")){
+           if(e.getMessage().equals("*Số điện thoại đã tồn tại trong hệ thống")){
                lbErrPhoneNumber.setText(e.getMessage());
                 return;
            }
 
-           if(e.getMessage().equals("Email đã tồn tại trong hệ thống")){
+           if(e.getMessage().equals("*Email đã tồn tại trong hệ thống")){
                lbErrEmail.setText(e.getMessage());
                return;
            }

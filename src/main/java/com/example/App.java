@@ -3,9 +3,11 @@ package com.example;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -33,6 +35,14 @@ public class App extends Application {
         stage.setScene(scene);
         stage.initStyle(StageStyle.DECORATED);
         stage.setResizable(false);
+        stage.setTitle("Quản lý thư viện");
+
+        // hien thi ung dung ra giua man hinh
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 1.5);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 1.5);
+
+
         stage.show();
     }
 
@@ -53,19 +63,19 @@ public class App extends Application {
 
     public static void setRootPop(String fxml, String title, boolean resizable, Optional<Consumer<Void>> onHiddenAction) throws IOException {
         Stage stage = new Stage();
-        Scene newScene = new Scene(loadFXML(fxml), 830, 467);
+        Scene newScene = new Scene(loadFXML(fxml), 715, 461);
         stage.setResizable(resizable);
         stage.setScene(newScene);
         stage.setTitle(title);
 
-        // khi stage moi duoc hien thi thi stage cha se bi tat
+
         Stage parentStage = (Stage) scene.getWindow();
         parentStage.setOpacity(0.95);
 
-        // Xử lý khi frm phụ đóng (nếu Optional có giá trị)
+
         stage.setOnHidden(e -> {
-            parentStage.setOpacity(1.0); // Đảm bảo hiển thị lại stage cha
-            onHiddenAction.ifPresent(action -> action.accept(null)); // Thực hiện công việc mà bạn truyền vào (nếu Optional có giá trị)
+            parentStage.setOpacity(1.0);
+            onHiddenAction.ifPresent(action -> action.accept(null));
         });
 
         // Show the new stage as a dialog and wait for it to close

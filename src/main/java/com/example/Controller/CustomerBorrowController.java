@@ -20,14 +20,14 @@ import static com.example.Helper.TableHelper.showOnTable;
 
 public class CustomerBorrowController extends TableRow<Borrow> implements Initializable {
     public TableView<Borrow> tbDetail;
-    public TableColumn colCustomerId;
-    public TableColumn colBookId;
-    public TableColumn colBookName;
-    public TableColumn colStartDate;
-    public TableColumn colEndDate;
+    public TableColumn<Borrow, String> colCustomerId;
+    public TableColumn<Borrow, String> colBookId;
+    public TableColumn<Borrow, String> colBookName;
+    public TableColumn<Borrow, String> colStartDate;
+    public TableColumn<Borrow, String> colEndDate;
     public TextField txtSearch;
-    public TableColumn colReturnDate;
-    public TableColumn colStatus;
+    public TableColumn<Borrow, String> colReturnDate;
+    public TableColumn<Borrow, String> colStatus;
 
     private BorrowService borrowService;
     private static String customerId;
@@ -54,16 +54,13 @@ public class CustomerBorrowController extends TableRow<Borrow> implements Initia
 
     private void hightlightOutOfDate() {
         try {
-            // Lấy danh sách các bookId cần tô màu đỏ
             List<String> outOfDateBookIds = borrowService.getOutOfDateBookIds(customerId);
-
             // Tạo một Map để lưu trữ các bookId cần tô màu
             Map<String, Boolean> bookIdToColor = new HashMap<>();
             for (String bookId : outOfDateBookIds) {
                 bookIdToColor.put(bookId, true);
             }
 
-            // Cài đặt row factory để tô màu dòng dựa trên bookId
             tbDetail.setRowFactory(tableView -> new TableRow<Borrow>() {
                 @Override
                 protected void updateItem(Borrow item, boolean empty) {
@@ -71,10 +68,8 @@ public class CustomerBorrowController extends TableRow<Borrow> implements Initia
 
                     if (item != null) {
                         if (bookIdToColor.containsKey(item.getBookId())) {
-                            // Tô màu nền đỏ cho dòng có bookId cần tô màu
                             setStyle("-fx-background-color: #CB6918;");
                         } else {
-                            // Đặt màu nền mặc định nếu không phù hợp
                             setStyle("");
                         }
                     } else {

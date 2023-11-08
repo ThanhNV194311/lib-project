@@ -104,15 +104,15 @@ public class CustomerService {
         regexInfo(name, email, phoneNumber);
 
         if(isExisted("identity_card",customerId)){
-            throw new IsExistedException("Id đã tồn tại trong hệ thống");
+            throw new IsExistedException("*Id đã tồn tại trong hệ thống");
         }
 
         if(isExisted("phone_number",phoneNumber)) {
-            throw new IsExistedException("Số điện thoại đã tồn tại trong hệ thống");
+            throw new IsExistedException("*Số điện thoại đã tồn tại trong hệ thống");
         }
 
         if(isExisted("email", email)){
-            throw new IsExistedException("Email đã tồn tại trong hệ thống");
+            throw new IsExistedException("*Email đã tồn tại trong hệ thống");
         }
 
     }

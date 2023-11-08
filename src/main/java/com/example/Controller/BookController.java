@@ -21,18 +21,30 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class BookController implements Initializable {
-    public ComboBox<String> cbAuthor;
-    public ComboBox<String> cbCategory;
-    public TextField txtAuthor;
-    public TextField txtCategory;
-    public Button btnAddCategory;
-    public Button btnAddAuthor;
-    public Button btnUpdate, btnAdd;
-    public Button btnDelete, btnExport;
-    public RadioButton rAuthor;
-    public RadioButton rCategory;
-    public ComboBox<String> cbFilter;
-    public RadioButton rNone;
+    @FXML
+    private ComboBox<String> cbAuthor;
+    @FXML
+    private ComboBox<String> cbCategory;
+    @FXML
+    private TextField txtAuthor;
+    @FXML
+    private TextField txtCategory;
+    @FXML
+    private Button btnAddCategory;
+    @FXML
+    private Button btnAddAuthor;
+    @FXML
+    private Button btnUpdate, btnAdd;
+    @FXML
+    private Button btnDelete, btnExport;
+    @FXML
+    private RadioButton rAuthor;
+    @FXML
+    private RadioButton rCategory;
+    @FXML
+    private ComboBox<String> cbFilter;
+    @FXML
+    private RadioButton rNone;
     @FXML
     private TextField txtIdBook;
 
@@ -71,6 +83,8 @@ public class BookController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        cbFilter.setValue("<None>");
 
         try {
             TableHelper.showOnTable(
