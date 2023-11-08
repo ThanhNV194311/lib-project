@@ -103,10 +103,10 @@
             <ToggleGroup fx:id="G1" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="rCategory" layoutX="653.0" layoutY="39.0" mnemonicParsing="false" onAction="#getListForFilter" text="Lọc theo thể loại">
+      <RadioButton fx:id="rCategory" layoutX="653.0" layoutY="39.0" mnemonicParsing="false" onAction="#getListForFilter" text="Lọc theo thể loại" toggleGroup="$G1">
 
       </RadioButton>
-      <RadioButton fx:id="rNone" layoutX="653.0" layoutY="67.0" mnemonicParsing="false" onAction="#getListForFilter" selected="true" text="Không">
+      <RadioButton fx:id="rNone" layoutX="653.0" layoutY="67.0" mnemonicParsing="false" onAction="#getListForFilter" selected="true" text="Không" toggleGroup="$G1">
 
       </RadioButton>
     </children>

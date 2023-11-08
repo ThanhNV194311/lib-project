@@ -4,29 +4,22 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class Borrow {
-    private int borrowId;
     private String customerId;
     private String bookId;
-    private LocalDate startDay;
-    private LocalDate endDay;
-    private boolean status;
+    private String bookName;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private LocalDate returnDate;
+    private String status;
 
-
-    public Borrow(int borrowId, String customerId, String bookId, LocalDate startDay, LocalDate endDay, boolean status) {
-        this.borrowId = borrowId;
+    public Borrow(String customerId, String bookId, String bookName, LocalDate startDate, LocalDate endDate, LocalDate returnDate, String status) {
         this.customerId = customerId;
         this.bookId = bookId;
-        this.startDay = startDay;
-        this.endDay = endDay;
+        this.bookName = bookName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.returnDate = returnDate;
         this.status = status;
-    }
-
-    public int getBorrowId() {
-        return borrowId;
-    }
-
-    public void setBorrowId(int borrowId) {
-        this.borrowId = borrowId;
     }
 
     public String getCustomerId() {
@@ -45,27 +38,43 @@ public class Borrow {
         this.bookId = bookId;
     }
 
-    public LocalDate getStartDay() {
-        return startDay;
+    public String getBookName() {
+        return bookName;
     }
 
-    public void setStartDay(LocalDate startDay) {
-        this.startDay = startDay;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
-    public LocalDate getEndDay() {
-        return endDay;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setEndDay(LocalDate endDay) {
-        this.endDay = endDay;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public boolean isStatus() {
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public LocalDate getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

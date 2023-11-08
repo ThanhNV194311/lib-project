@@ -53,7 +53,7 @@ public class App extends Application {
 
     public static void setRootPop(String fxml, String title, boolean resizable, Optional<Consumer<Void>> onHiddenAction) throws IOException {
         Stage stage = new Stage();
-        Scene newScene = new Scene(loadFXML(fxml), 668, 467);
+        Scene newScene = new Scene(loadFXML(fxml), 830, 467);
         stage.setResizable(resizable);
         stage.setScene(newScene);
         stage.setTitle(title);

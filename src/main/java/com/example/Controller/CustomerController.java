@@ -67,6 +67,8 @@ public class CustomerController implements Initializable {
 
 
 
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         customerService = new CustomerService();
@@ -100,6 +102,8 @@ public class CustomerController implements Initializable {
             txtName.setText(customer.getName());
             txtEmail.setText(customer.getEmail());
             txtPhoneNumber.setText(customer.getPhoneNumber());
+
+            CustomerBorrowController.setCustomerId(customer.getIdentityCard());
         }
     }
 
@@ -190,5 +194,9 @@ public class CustomerController implements Initializable {
 
     public void onClickHistory(ActionEvent actionEvent) throws IOException {
         App.setRootPop("/com/example/QuanLyMuonSachFrm","Danh sách đã mượn", false, Optional.empty());
+
+
+
+
     }
 }

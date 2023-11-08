@@ -7,15 +7,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.CustomerBorrow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.CustomerBorrowController">
    <children>
-      <TableView fx:id="tbDetail" layoutY="110.0" prefHeight="293.0" prefWidth="642.0">
+      <TableView fx:id="tbDetail" layoutY="110.0" prefHeight="350.0" prefWidth="715.0">
          <columns>
             <TableColumn fx:id="colCustomerId" prefWidth="91.0" text="ID khách hàng" />
             <TableColumn fx:id="colBookId" prefWidth="69.0" text="ID sách" />
             <TableColumn fx:id="colBookName" prefWidth="131.0" text="Tên sách" />
             <TableColumn fx:id="colStartDate" prefWidth="119.0" text="Ngày mượn" />
             <TableColumn fx:id="colEndDate" prefWidth="131.11114501953125" text="Ngày hẹn trả" />
+            <TableColumn fx:id="colReturnDate" prefWidth="75.0" text="Ngày trả" />
+            <TableColumn fx:id="colStatus" prefWidth="75.0" text="Trạng thái" />
          </columns>
       </TableView>
       <Label layoutX="20.0" layoutY="29.0" text="Tìm kiếm :">
