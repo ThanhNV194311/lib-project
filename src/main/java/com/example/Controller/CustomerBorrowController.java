@@ -12,9 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 import static com.example.Helper.TableHelper.showOnTable;
@@ -44,7 +41,8 @@ public class CustomerBorrowController extends TableRow<Borrow> implements Initia
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        hightlightOutOfDate();
+        borrowService.highlightOutOfDate(customerId, tbDetail);
+//        hightlightOutOfDate();
 
         try {
             showOnTable(tbDetail, borrowService.getBorrowByCustomerId(customerId), colCustomerId, colBookId, colBookName, colStartDate, colEndDate, colReturnDate, colStatus);
@@ -55,35 +53,35 @@ public class CustomerBorrowController extends TableRow<Borrow> implements Initia
         setCell();
     }
 
-    private void hightlightOutOfDate() {
-        try {
-            List<String> outOfDateBookIds = borrowService.getOutOfDateBookIds(customerId);
-            // Tạo một Map để lưu trữ các bookId cần tô màu
-            Map<String, Boolean> bookIdToColor = new HashMap<>();
-            for (String bookId : outOfDateBookIds) {
-                bookIdToColor.put(bookId, true);
-            }
-
-            tbDetail.setRowFactory(tableView -> new TableRow<Borrow>() {
-                @Override
-                protected void updateItem(Borrow item, boolean empty) {
-                    super.updateItem(item, empty);
-
-                    if (item != null) {
-                        if (bookIdToColor.containsKey(item.getBookId())) {
-                            setStyle("-fx-background-color: #CB6918;");
-                        } else {
-                            setStyle("");
-                        }
-                    } else {
-                        setStyle("");
-                    }
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    private void hightlightOutOfDate() {
+//        try {
+//            List<String> outOfDateBookIds = borrowService.getOutOfDateBookIds(customerId);
+//            // Tạo một Map để lưu trữ các bookId cần tô màu
+//            Map<String, Boolean> bookIdToColor = new HashMap<>();
+//            for (String bookId : outOfDateBookIds) {
+//                bookIdToColor.put(bookId, true);
+//            }
+//
+//            tbDetail.setRowFactory(tableView -> new TableRow<Borrow>() {
+//                @Override
+//                protected void updateItem(Borrow item, boolean empty) {
+//                    super.updateItem(item, empty);
+//
+//                    if (item != null) {
+//                        if (bookIdToColor.containsKey(item.getBookId())) {
+//                            setStyle("-fx-background-color: #CB6918;");
+//                        } else {
+//                            setStyle("");
+//                        }
+//                    } else {
+//                        setStyle("");
+//                    }
+//                }
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     private void setCell() {

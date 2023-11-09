@@ -12,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class BorrowController implements Initializable {
@@ -42,25 +43,35 @@ public class BorrowController implements Initializable {
 
     private final BorrowService borrowService;
 
-    public BorrowController(){
+    public BorrowController() {
         this.borrowService = new BorrowService();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
         setCell();
         try {
             cbCustomerId.setItems(borrowService.getAllCustomerId());
             cbBookId.setItems(borrowService.getAllBookId());
+            
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
+        highlightOutDate();
 
         try {
             TableHelper.showOnTable(tbBorrow, borrowService.getAllBorrow(), colBookId, colCustomerId, colStartDate, colEndDate, colReturnDate, colStatus);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void highlightOutDate() {
+        for (String id : cbCustomerId.getItems()) {
+            borrowService.highlightOutOfDate(id, tbBorrow);
         }
     }
 
@@ -78,10 +89,17 @@ public class BorrowController implements Initializable {
 
 
     public void onSelected(ActionEvent actionEvent) {
-        if(!borrowService.checkDate(dpEndDate.getValue())){
+        if (!borrowService.checkDate(dpEndDate.getValue())) {
             lbErrDate.setText("Không được nhỏ hơn ngày hiện tại");
         } else {
             lbErrDate.setText("");
         }
+    }
+
+    public void onClickReturnBook(ActionEvent actionEvent) throws SQLException {
+        String bookId = tbBorrow.getSelectionModel().getSelectedItem().getBookId();
+        String customerId = tbBorrow.getSelectionModel().getSelectedItem().getCustomerId();
+        borrowService.returnBookByBookId(bookId, customerId);
+        tbBorrow.setItems(borrowService.getAllBorrow());
     }
 }

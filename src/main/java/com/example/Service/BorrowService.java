@@ -6,13 +6,17 @@ import com.example.Utils.ExecuteQuery;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BorrowService {
     private final ExecuteQuery executeQuery = ExecuteQuery.getInstance();
@@ -140,5 +144,35 @@ public class BorrowService {
 
     public boolean checkDate(LocalDate date){
         return date.isAfter(LocalDate.now());
+    }
+
+    public void highlightOutOfDate(String customerId, TableView table) {
+        try {
+            List<String> outOfDateBookIds = getOutOfDateBookIds(customerId);
+
+            Map<String, Boolean> bookIdToColor = new HashMap<>();
+            for (String bookId : outOfDateBookIds) {
+                bookIdToColor.put(bookId, true);
+            }
+
+            table.setRowFactory(tableView -> new TableRow<Borrow>() {
+                @Override
+                protected void updateItem(Borrow item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item != null) {
+                        if (bookIdToColor.containsKey(item.getBookId())) {
+                            setStyle("-fx-background-color: #CB6918;");
+                        } else {
+                            setStyle("");
+                        }
+                    } else {
+                        setStyle("");
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
