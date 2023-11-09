@@ -63,15 +63,17 @@ public class CustomerController implements Initializable {
     @FXML
     private Button btnHistory;
 
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
-
+    public CustomerController(){
+        this.customerService = new CustomerService();
+    }
 
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        customerService = new CustomerService();
+
 
         // regis event
         customerService.setTextFieldClearErrorOnTyping(txtId, lbErrID);

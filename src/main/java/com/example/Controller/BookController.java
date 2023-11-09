@@ -69,14 +69,17 @@ public class BookController implements Initializable {
     private TableColumn<BookDTO, LocalDate> colPublishDate;
     @FXML
     private TableColumn<BookDTO, Integer> colQuantity;
-    private BookService bookService;
+    private final BookService bookService;
     private boolean flag = false;
     private boolean flag1 = false;
+
+    public BookController() {
+        this.bookService = new BookService();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setCell();
-        bookService = new BookService();
         try {
             cbAuthor.setItems(bookService.listAuthor());
             cbCategory.setItems(bookService.listCategory());

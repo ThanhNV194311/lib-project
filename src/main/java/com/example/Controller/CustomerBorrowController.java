@@ -30,9 +30,12 @@ public class CustomerBorrowController extends TableRow<Borrow> implements Initia
     public TableColumn<Borrow, String> colReturnDate;
     public TableColumn<Borrow, String> colStatus;
 
-    private BorrowService borrowService;
+    private final BorrowService borrowService;
     private static String customerId;
 
+    public CustomerBorrowController(){
+        this.borrowService = new BorrowService();
+    }
 
     public static void setCustomerId(String identityCard) {
         customerId = identityCard;
@@ -40,7 +43,6 @@ public class CustomerBorrowController extends TableRow<Borrow> implements Initia
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        borrowService = new BorrowService();
 
         hightlightOutOfDate();
 

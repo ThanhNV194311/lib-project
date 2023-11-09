@@ -19,8 +19,12 @@ public class StatisticsController implements Initializable {
 
     @FXML
     private Text txtSoLuongSach;
-    private StatisticsService statisticsService;
+    private final StatisticsService statisticsService;
 
+
+    public StatisticsController() {
+        this.statisticsService = new StatisticsService();
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -38,9 +42,7 @@ public class StatisticsController implements Initializable {
     }
 
 
-    public StatisticsController() {
-        this.statisticsService = new StatisticsService();
-    }
+
 
 
 

@@ -20,7 +20,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
+public class LoginController {
     @FXML
     private Label lbErr;
     @FXML
@@ -29,11 +29,12 @@ public class LoginController implements Initializable {
     private PasswordField txtPassword;
 
     private LoginService loginService;
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-//        loadPane();
-        loginService = new LoginService();
+
+    public LoginController(){
+        this.loginService = new LoginService();
     }
+
+
 
 //    private void loadPane(){
 //        String frm = "/com/example/Windows.fxml";
