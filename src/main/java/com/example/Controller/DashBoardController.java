@@ -38,6 +38,7 @@ public class DashBoardController implements Initializable {
 
     public void selectedItem(MouseEvent mouseEvent) {
         String selectedItem = listMenu.getSelectionModel().getSelectedItem();
+        if(selectedItem == null) return;
         loadPane(selectedItem);
     }
 

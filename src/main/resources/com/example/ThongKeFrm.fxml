@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="848.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.StatisticsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="848.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.StatisticsController">
    <children>
       <TextArea layoutX="619.0" layoutY="48.0" prefHeight="102.0" prefWidth="200.0" style="-fx-background-color: yellow;" />
       <TextArea layoutX="324.0" layoutY="48.0" prefHeight="102.0" prefWidth="200.0" style="-fx-background-color: green;" />
@@ -41,5 +44,14 @@
             <Font size="16.0" />
          </font>
       </Text>
+      <PieChart fx:id="pieChart" layoutX="24.0" layoutY="201.0" prefHeight="272.0" prefWidth="406.0" />
+      <BarChart fx:id="barChart" layoutX="427.0" layoutY="181.0" prefHeight="344.0" prefWidth="384.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
    </children>
 </AnchorPane>
