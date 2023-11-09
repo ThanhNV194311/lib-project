@@ -19,6 +19,7 @@ public class StatisticsController implements Initializable {
 
     @FXML
     private Text txtSoLuongSach;
+    private StatisticsService statisticsService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,7 +36,7 @@ public class StatisticsController implements Initializable {
             e.printStackTrace();
         }
     }
-    private StatisticsService statisticsService;
+
 
     public StatisticsController() {
         this.statisticsService = new StatisticsService();

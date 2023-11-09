@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -7,17 +8,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.CustomerBorrowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="789.0" stylesheets="@../../primer-light.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.CustomerBorrowController">
    <children>
-      <TableView fx:id="tbDetail" layoutY="110.0" prefHeight="350.0" prefWidth="715.0">
+      <TableView fx:id="tbDetail" layoutY="110.0" prefHeight="251.0" prefWidth="789.0">
          <columns>
-            <TableColumn fx:id="colCustomerId" prefWidth="91.0" text="ID khách hàng" />
+            <TableColumn fx:id="colCustomerId" prefWidth="91.0" text="ID khách" />
             <TableColumn fx:id="colBookId" prefWidth="69.0" text="ID sách" />
             <TableColumn fx:id="colBookName" prefWidth="131.0" text="Tên sách" />
             <TableColumn fx:id="colStartDate" prefWidth="119.0" text="Ngày mượn" />
             <TableColumn fx:id="colEndDate" prefWidth="131.11114501953125" text="Ngày hẹn trả" />
-            <TableColumn fx:id="colReturnDate" prefWidth="75.0" text="Ngày trả" />
-            <TableColumn fx:id="colStatus" prefWidth="75.0" text="Trạng thái" />
+            <TableColumn fx:id="colReturnDate" prefWidth="131.55560302734375" text="Ngày trả" />
+            <TableColumn fx:id="colStatus" prefWidth="113.7777099609375" text="Trạng thái" />
          </columns>
       </TableView>
       <Label layoutX="20.0" layoutY="29.0" text="Tìm kiếm :">
@@ -25,6 +26,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txtSearch" layoutX="100.0" layoutY="27.0" prefHeight="25.0" prefWidth="310.0" />
+      <TextField fx:id="txtSearch" layoutX="111.0" layoutY="21.0" prefHeight="25.0" prefWidth="310.0" />
+      <Button layoutX="306.0" layoutY="387.0" mnemonicParsing="false" onAction="#onClickReturnBook" prefHeight="36.0" prefWidth="102.0" text="Trả sách" />
    </children>
 </AnchorPane>

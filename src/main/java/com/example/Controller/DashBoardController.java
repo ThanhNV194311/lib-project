@@ -55,6 +55,7 @@ public class DashBoardController implements Initializable {
                 break;
             default:
                 frm = "com/example/QuanLySachFrm.fxml";
+                break;
         }
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(frm));

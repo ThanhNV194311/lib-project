@@ -2,6 +2,7 @@ package com.example.Controller;
 
 import com.example.Models.Borrow;
 import com.example.Service.BorrowService;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -91,5 +92,11 @@ public class CustomerBorrowController extends TableRow<Borrow> implements Initia
         colEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
         colReturnDate.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+    }
+
+    public void onClickReturnBook(ActionEvent actionEvent) throws SQLException {
+        String bookIdSelected = tbDetail.getSelectionModel().getSelectedItem().getBookId();
+        borrowService.returnBookByBookId(bookIdSelected, customerId);
+        tbDetail.setItems(borrowService.getBorrowByCustomerId(customerId));
     }
 }

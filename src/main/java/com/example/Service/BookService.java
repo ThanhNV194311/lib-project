@@ -2,6 +2,7 @@ package com.example.Service;
 
 import com.example.DTO.BookDTO;
 import com.example.Helper.AlertHelper;
+import com.example.Models.Customer;
 import com.example.Utils.ExecuteQuery;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,6 +53,7 @@ public class BookService {
         }
         return result;
     }
+
 
     public void deleteBook(String bookId) {
         String deleteBookSql = "Update book set is_delete = 1 where book_id = '" + bookId + "'";
