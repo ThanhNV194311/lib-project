@@ -4,11 +4,9 @@ import com.example.Models.Borrow;
 import com.example.Service.BorrowService;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -26,9 +24,10 @@ public class CustomerBorrowController extends TableRow<Borrow> implements Initia
     public TextField txtSearch;
     public TableColumn<Borrow, String> colReturnDate;
     public TableColumn<Borrow, String> colStatus;
-
+    public Label lbWelcome;
     private final BorrowService borrowService;
     private static String customerId;
+
 
     public CustomerBorrowController(){
         this.borrowService = new BorrowService();
@@ -40,7 +39,6 @@ public class CustomerBorrowController extends TableRow<Borrow> implements Initia
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         borrowService.highlightOutOfDate(customerId, tbDetail);
 //        hightlightOutOfDate();
 
@@ -99,4 +97,6 @@ public class CustomerBorrowController extends TableRow<Borrow> implements Initia
         borrowService.returnBookByBookId(bookIdSelected, customerId);
         tbDetail.setItems(borrowService.getBorrowByCustomerId(customerId));
     }
+
+
 }

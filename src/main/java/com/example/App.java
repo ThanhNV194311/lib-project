@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -28,6 +29,10 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
+
+        Image icon = new Image(String.valueOf(App.class.getResource("79163-200.png")));
+
+        stage.getIcons().add(icon);
 
         Application.setUserAgentStylesheet("primer-light.css");
         Parent root = loadFXML("LoginFrm");
@@ -67,6 +72,8 @@ public class App extends Application {
         stage.setResizable(resizable);
         stage.setScene(newScene);
         stage.setTitle(title);
+        Image icon = new Image(String.valueOf(App.class.getResource("79163-200.png")));
+        stage.getIcons().add(icon);
 
 
         Stage parentStage = (Stage) scene.getWindow();

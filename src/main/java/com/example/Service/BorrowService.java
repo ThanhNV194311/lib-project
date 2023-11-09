@@ -175,4 +175,49 @@ public class BorrowService {
             e.printStackTrace();
         }
     }
+
+    public void borrowBook(String bookId, String customerId, LocalDate endDate){
+        if(isBorrowed(bookId, customerId, endDate)){
+            AlertHelper.showAlert(Alert.AlertType.ERROR, "Thông báo", null, "Sách đã được mượn");
+            return;
+        }
+        String borrowBookSql = "insert into borrow(id, customer_id, start_day, end_day, status) values (\n" +
+                "    (\n" +
+                "        select id\n" +
+                "        from book\n" +
+                "        where book_id = '"+ bookId +"'\n" +
+                "    ),\n" +
+                "    (\n" +
+                "        select customer_id\n" +
+                "        from customer\n" +
+                "        where identity_card = '"+ customerId +"'\n" +
+                "    ),\n" +
+                "    NOW(),\n" +
+                "    '"+ endDate +"',\n" +
+                "    0\n" +
+                ");";
+        executeQuery.executeUpdate(borrowBookSql);
+        AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Mượn sách thành công", null, "Mượn sách thành công");
+    }
+
+    private boolean isBorrowed(String bookId, String customerId, LocalDate endDate) {
+        String isBorrowedSql = "select count(*) from borrow\n" +
+                "where id = (\n" +
+                "        select id\n" +
+                "        from book\n" +
+                "        where book_id = '"+ bookId +"'\n" +
+                "    ) and customer_id = (\n" +
+                "        select customer_id\n" +
+                "        from customer\n" +
+                "        where identity_card = '"+ customerId +"'\n" +
+                "    ) and end_day = '"+ endDate +"';";
+        ResultSet resultSet = executeQuery.executeQuery(isBorrowedSql);
+        try {
+            resultSet.next();
+            return resultSet.getInt(1) > 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
 }

@@ -17,6 +17,8 @@ import java.util.ResourceBundle;
 
 public class BorrowController implements Initializable {
     @FXML
+    private Button btnBorrow;
+    @FXML
     private TableView<Borrow> tbBorrow;
     @FXML
     private TableColumn<Borrow, String> colCustomerId;
@@ -91,8 +93,10 @@ public class BorrowController implements Initializable {
     public void onSelected(ActionEvent actionEvent) {
         if (!borrowService.checkDate(dpEndDate.getValue())) {
             lbErrDate.setText("Không được nhỏ hơn ngày hiện tại");
+            btnBorrow.setDisable(true);
         } else {
             lbErrDate.setText("");
+            btnBorrow.setDisable(false);
         }
     }
 
@@ -100,6 +104,11 @@ public class BorrowController implements Initializable {
         String bookId = tbBorrow.getSelectionModel().getSelectedItem().getBookId();
         String customerId = tbBorrow.getSelectionModel().getSelectedItem().getCustomerId();
         borrowService.returnBookByBookId(bookId, customerId);
+        tbBorrow.setItems(borrowService.getAllBorrow());
+    }
+
+    public void onClickBorrowBook(ActionEvent actionEvent) throws SQLException {
+        borrowService.borrowBook(cbBookId.getValue(), cbCustomerId.getValue(), dpEndDate.getValue());
         tbBorrow.setItems(borrowService.getAllBorrow());
     }
 }

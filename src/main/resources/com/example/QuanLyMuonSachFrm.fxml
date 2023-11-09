@@ -4,11 +4,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="789.0" stylesheets="@../../primer-light.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.CustomerBorrowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="789.0" stylesheets="@../../primer-light.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.CustomerBorrowController">
    <children>
       <TableView fx:id="tbDetail" layoutY="110.0" prefHeight="251.0" prefWidth="789.0">
          <columns>
@@ -21,12 +20,11 @@
             <TableColumn fx:id="colStatus" prefWidth="113.7777099609375" text="Trạng thái" />
          </columns>
       </TableView>
-      <Label layoutX="20.0" layoutY="29.0" text="Tìm kiếm :">
+      <Button layoutX="343.0" layoutY="379.0" mnemonicParsing="false" onAction="#onClickReturnBook" prefHeight="36.0" prefWidth="102.0" text="Trả sách" />
+      <Label fx:id="lbWelcome" layoutX="120.0" layoutY="23.0" text="DANH SÁCH MƯỢN CỦA KHÁCH HÀNG">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="31.0" />
          </font>
       </Label>
-      <TextField fx:id="txtSearch" layoutX="111.0" layoutY="21.0" prefHeight="25.0" prefWidth="310.0" />
-      <Button layoutX="306.0" layoutY="387.0" mnemonicParsing="false" onAction="#onClickReturnBook" prefHeight="36.0" prefWidth="102.0" text="Trả sách" />
    </children>
 </AnchorPane>

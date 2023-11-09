@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="542.0" prefWidth="885.0" stylesheets="@../../primer-light.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.BorrowController">
+<AnchorPane prefHeight="542.0" prefWidth="885.0" stylesheets="@../../primer-light.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.BorrowController">
    <children>
       <TableView fx:id="tbBorrow" layoutY="98.0" prefHeight="200.0" prefWidth="885.0">
         <columns>
@@ -31,7 +31,7 @@
          </font>
       </Label>
       <TextField fx:id="txtSearch" layoutX="117.0" layoutY="19.0" onKeyPressed="#search" prefHeight="25.0" prefWidth="223.0" />
-      <Button layoutX="697.0" layoutY="347.0" mnemonicParsing="false"  text="Mượn sách" />
+      <Button fx:id="btnBorrow" layoutX="697.0" layoutY="347.0" mnemonicParsing="false" onAction="#onClickBorrowBook" text="Mượn sách" />
       <Button layoutX="697.0" layoutY="419.0" mnemonicParsing="false" onAction="#onClickReturnBook" prefHeight="36.0" prefWidth="92.0" text="Trả sách" />
       <GridPane layoutX="195.0" layoutY="313.0" prefHeight="211.0" prefWidth="397.0">
         <columnConstraints>
@@ -53,9 +53,7 @@
             <Label text="Ngày hẹn trả" GridPane.rowIndex="5" />
             <ComboBox fx:id="cbCustomerId" prefHeight="36.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <DatePicker fx:id="dpEndDate" onAction="#onSelected" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label prefHeight="20.0" prefWidth="198.0" style="-fx-text-fill: red;" text="Label" GridPane.columnIndex="1" />
-            <Label prefHeight="20.0" prefWidth="199.0" style="-fx-text-fill: red;" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label fx:id="lbErrDate" prefHeight="20.0" prefWidth="200.0" style="-fx-text-fill: red;" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="lbErrDate" prefHeight="20.0" prefWidth="200.0" style="-fx-text-fill: red;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>

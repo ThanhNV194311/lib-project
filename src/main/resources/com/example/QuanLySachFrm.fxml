@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="918.0" stylesheets="@../../primer-light.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.BookController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="918.0" stylesheets="@../../primer-light.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.BookController">
     <children>
         <TableView fx:id="tbBook" layoutY="104.0" onMouseClicked="#onSelected" prefHeight="250.0" prefWidth="918.0">
             <columns>
@@ -89,7 +89,7 @@
                 <Font name="System Bold" size="16.0" />
             </font>
         </Label>
-        <TextField fx:id="txtSearch" layoutX="106.0" layoutY="32.0" onAction="#search" prefHeight="25.0" prefWidth="223.0" />
+        <TextField fx:id="txtSearch" layoutX="106.0" layoutY="32.0" onKeyPressed="#search" prefHeight="25.0" prefWidth="223.0" />
         <Button fx:id="btnExport" layoutX="438.0" layoutY="540.0" mnemonicParsing="false" onAction="#onClickExport" prefHeight="36.0" prefWidth="89.0" text="Xuất" />
       <Label layoutX="409.0" layoutY="37.0" text="Lọc:">
          <font>

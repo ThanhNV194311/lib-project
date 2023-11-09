@@ -1,8 +1,11 @@
 package com.example.Controller;
 
+import com.example.App;
+import com.example.Helper.AlertHelper;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -64,6 +67,12 @@ public class DashBoardController implements Initializable {
             pane.getChildren().add(adminPane);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void onClickLogout(ActionEvent actionEvent) throws IOException {
+        if(AlertHelper.showConfirmation("Bạn có chắc chắn muốn đăng xuất không?")){
+            App.setRoot("LoginFrm");
         }
     }
 }

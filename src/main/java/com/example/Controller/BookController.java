@@ -297,8 +297,11 @@ public class BookController implements Initializable {
             cbFilter.setItems(bookService.listAuthor());
         } else if (rCategory.isSelected()) {
             cbFilter.setItems(bookService.listCategory());
-        }
+        } else {
             tbBook.setItems(bookService.getBookData());
+            cbFilter.setItems(null);
+            cbFilter.setPromptText("<None>");
         }
+    }
 }
 

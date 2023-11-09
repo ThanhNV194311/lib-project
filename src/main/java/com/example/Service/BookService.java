@@ -105,6 +105,11 @@ public class BookService {
 
     public void addNewBook(String bookId, String bookName, String authorNameTxt, String authorNameCb,
             String categoryTxt, String categoryCb, int quantityText, LocalDate publishDate) throws SQLException {
+        if(isExisted("book_id", bookId, "book")){
+            AlertHelper.showAlert(Alert.AlertType.ERROR, "Lỗi", null, "Mã sách đã tồn tại");
+            return;
+        }
+
         // System.out.println("cb "+authorNameCb);
         // System.out.println("txt " + authorNameTxt);
         String selectedAuthorName = authorNameCb != null ? authorNameCb : authorNameTxt;
