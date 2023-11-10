@@ -39,7 +39,7 @@ public class CustomerBorrowController extends TableRow<Borrow> implements Initia
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        borrowService.highlightOutOfDate(customerId, tbDetail);
+        borrowService.highlightOutOfDate(customerId, tbDetail); // to nhung khach tra muon qua han
 //        hightlightOutOfDate();
 
         try {

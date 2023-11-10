@@ -30,6 +30,7 @@ public class LoginController {
 
     private LoginService loginService;
 
+    // design pattern: singleton, dependency injection = tiem phu thuoc
     public LoginController(){
         this.loginService = new LoginService();
     }

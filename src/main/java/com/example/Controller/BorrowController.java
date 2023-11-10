@@ -51,9 +51,8 @@ public class BorrowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
         setCell();
+
         try {
             cbCustomerId.setItems(borrowService.getAllCustomerId());
             cbBookId.setItems(borrowService.getAllBookId());
@@ -62,20 +61,17 @@ public class BorrowController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        highlightOutDate();
 
         try {
             TableHelper.showOnTable(tbBorrow, borrowService.getAllBorrow(), colBookId, colCustomerId, colStartDate, colEndDate, colReturnDate, colStatus);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        borrowService.highlightOutOfDate(tbBorrow);
     }
 
-    private void highlightOutDate() {
-        for (String id : cbCustomerId.getItems()) {
-            borrowService.highlightOutOfDate(id, tbBorrow);
-        }
-    }
+
 
     private void setCell() {
         colBookId.setCellValueFactory(new PropertyValueFactory<>("bookId"));
@@ -100,14 +96,14 @@ public class BorrowController implements Initializable {
         }
     }
 
-    public void onClickReturnBook(ActionEvent actionEvent) throws SQLException {
+    public void onClickReturnBook(ActionEvent actionEvent) throws SQLException { // khi bam nut tra sach
         String bookId = tbBorrow.getSelectionModel().getSelectedItem().getBookId();
         String customerId = tbBorrow.getSelectionModel().getSelectedItem().getCustomerId();
         borrowService.returnBookByBookId(bookId, customerId);
         tbBorrow.setItems(borrowService.getAllBorrow());
     }
 
-    public void onClickBorrowBook(ActionEvent actionEvent) throws SQLException {
+    public void onClickBorrowBook(ActionEvent actionEvent) throws SQLException { // khi bam nut muon sach
         borrowService.borrowBook(cbBookId.getValue(), cbCustomerId.getValue(), dpEndDate.getValue());
         tbBorrow.setItems(borrowService.getAllBorrow());
     }

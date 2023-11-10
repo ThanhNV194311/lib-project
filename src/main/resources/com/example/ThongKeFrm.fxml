@@ -4,48 +4,34 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="848.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.StatisticsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.StatisticsController">
    <children>
-      <TextArea layoutX="619.0" layoutY="48.0" prefHeight="102.0" prefWidth="200.0" style="-fx-background-color: yellow;" />
-      <TextArea layoutX="324.0" layoutY="48.0" prefHeight="102.0" prefWidth="200.0" style="-fx-background-color: green;" />
-      <TextArea layoutX="46.0" layoutY="51.0" prefHeight="102.0" prefWidth="200.0" style="-fx-background-color: blue;" />
-      <Text fx:id="txtSoLuongKhach" layoutX="82.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="135.47002410888672">
+      <TextArea layoutX="428.0" layoutY="51.0" prefHeight="102.0" prefWidth="189.0" style="-fx-background-color: #b3b88a;" />
+      <TextArea layoutX="220.0" layoutY="50.0" prefHeight="102.0" prefWidth="189.0" style="-fx-background-color: #629c6b;" />
+      <TextArea layoutX="15.0" layoutY="51.0" prefHeight="102.0" prefWidth="189.0" style="-fx-background-color: #5b7073;" />
+      <Text fx:id="txtSoLuongKhach" layoutX="25.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="135.47002410888672">
          <font>
             <Font size="35.0" />
          </font>
       </Text>
-      <Text fx:id="txtSoSachDangMuon" layoutX="651.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="135.47002410888672">
+      <Text fx:id="txtSoSachDangMuon" layoutX="439.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="135.47002410888672">
          <font>
             <Font size="35.0" />
          </font>
       </Text>
-      <Text fx:id="txtSoLuongSach" layoutX="356.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="135.47002410888672">
+      <Text fx:id="txtSoLuongSach" layoutX="230.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="135.47002410888672">
          <font>
             <Font size="35.0" />
-         </font>
-      </Text>
-      <Text layoutX="67.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Khách hàng">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text layoutX="629.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số sách đang được mượn">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text layoutX="348.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số sách hiện tại">
-         <font>
-            <Font size="16.0" />
          </font>
       </Text>
       <PieChart fx:id="pieChart" layoutX="24.0" layoutY="201.0" prefHeight="272.0" prefWidth="406.0" />
-      <BarChart fx:id="barChart" layoutX="427.0" layoutY="181.0" prefHeight="344.0" prefWidth="384.0">
+      <BarChart fx:id="barChart" layoutX="479.0" layoutY="184.0" prefHeight="306.0" prefWidth="384.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -53,5 +39,31 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </BarChart>
+      <Label layoutX="25.0" layoutY="112.0" text="Khách hàng">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="230.0" layoutY="112.0" text="Số sách hiện tại">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="443.0" layoutY="112.0" text="Sách đang được mượn">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextArea layoutX="644.0" layoutY="50.0" prefHeight="102.0" prefWidth="200.0" style="-fx-background-color: #c47666;" />
+      <Text fx:id="txtQuaHan" layoutX="655.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="135.47002410888672">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Text>
+      <Label layoutX="655.0" layoutY="112.0" text="Sách mượn quá hạn">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

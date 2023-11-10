@@ -1,6 +1,6 @@
 package com.example.Models;
 import java.sql.Timestamp;
-public class Book {
+public class Book { // dai dien cho cac thuc the trong csdl
     private int bookId;
     private String name;
     private int categoryId;

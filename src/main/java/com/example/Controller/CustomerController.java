@@ -72,7 +72,7 @@ public class CustomerController implements Initializable {
 
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources) { // tu khoi tao nhung thu trong no trong lan chay dau tien
 
 
         // regis event
@@ -96,7 +96,7 @@ public class CustomerController implements Initializable {
         colPhoneNumber.setCellValueFactory(new PropertyValueFactory<Customer, String>("phoneNumber"));
     }
 
-    public void onSelected(MouseEvent mouseEvent) {
+    public void onSelected(MouseEvent mouseEvent) { // khi chon thi se hien thi len cac o text
         Customer customer = tbCustomer.getSelectionModel().getSelectedItem();
         if(customer != null){
 
@@ -114,7 +114,7 @@ public class CustomerController implements Initializable {
         lbErrPhoneNumber.setText("");
 
         try {
-            customerService.addCustomer(txtId.getText(),txtName.getText(), txtEmail.getText(), txtPhoneNumber.getText());
+            customerService.addCustomer(txtId.getText(),txtName.getText(), txtEmail.getText(), txtPhoneNumber.getText()); // thuc hien them khach moi
         } catch (NullException e) {
             showAlert(Alert.AlertType.ERROR, "Lỗi", null, e.getMessage());
         } catch (EmailNotValidException e) {
@@ -189,7 +189,7 @@ public class CustomerController implements Initializable {
         customerService.exportToExcel(tbCustomer);
     }
 
-    public void search(KeyEvent keyEvent) throws SQLException {
+    public void search(KeyEvent keyEvent) throws SQLException { // tim kiem khach hang
         String keyword = keyEvent.getText();
         tbCustomer.setItems(customerService.search(keyword, customerService.customersData()));
     }
@@ -197,9 +197,5 @@ public class CustomerController implements Initializable {
 
     public void onClickHistory(ActionEvent actionEvent) throws IOException {
         App.setRootPop("/com/example/QuanLyMuonSachFrm","Danh sách đã mượn", false, Optional.empty());
-
-
-
-
     }
 }

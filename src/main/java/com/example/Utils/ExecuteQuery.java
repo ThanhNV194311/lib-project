@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ExecuteQuery {
+public class ExecuteQuery { // singleton pattern
     private static ExecuteQuery instance;
 
     private final static String jdbcUrl = "jdbc:mysql://127.0.0.1:3306/lib";
@@ -34,7 +34,7 @@ public class ExecuteQuery {
         return instance;
     }
 
-    public ResultSet executeQuery(String sql) {
+    public ResultSet executeQuery(String sql) { // nhung cau query co tra ve gia tri select
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
@@ -45,7 +45,7 @@ public class ExecuteQuery {
         return null;
     }
 
-    public void executeUpdate(String sql) {
+    public void executeUpdate(String sql) { // nhung cau query khong tra ve gia tri // update, insert, delete
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);

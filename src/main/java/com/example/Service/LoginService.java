@@ -34,6 +34,8 @@ public class LoginService {
     }
 
     private Boolean isEmpty(String username, String password){
+//        if(username.isEmpty() || password.isEmpty()) return false;
+//        return true;
         return username.isEmpty() || password.isEmpty();
     }
 }

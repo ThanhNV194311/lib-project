@@ -53,8 +53,8 @@ public class CustomerService {
             }
         }
     }
-    public void addCustomer(String customerId, String name, String email, String phoneNumber) throws EmailNotValidException, PhoneNumberNotValidException, NullException, SQLException, IsExistedException {
-        validateInformation(customerId, name, email, phoneNumber);
+    public void addCustomer(String customerId, String name, String email, String phoneNumber) throws EmailNotValidException, PhoneNumberNotValidException, NullException, SQLException, IsExistedException { // them khach hang vao csdl
+        validateInformation(customerId, name, email, phoneNumber); // kiem tra thong tin
 
         String addCustomerSql = "INSERT INTO customer (identity_card,name, email, phone_number) VALUES ('" +
                 customerId + "', '" +
@@ -63,10 +63,10 @@ public class CustomerService {
                 phoneNumber + "')";
 
         executeQuery.executeUpdate(addCustomerSql);
-        AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Thêm khách hàng mới thành công!");
+        AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Thông báo", null, "Thêm khách hàng mới thành công!"); // hien thi thong bao
     }
 
-    public void updateCustomer(String customerIdOld, String name, String email, String phoneNumber, String customerIdNew) throws PhoneNumberNotValidException, EmailNotValidException, NullException, IsExistedException, SQLException {
+    public void updateCustomer(String customerIdOld, String name, String email, String phoneNumber, String customerIdNew) throws PhoneNumberNotValidException, EmailNotValidException, NullException, IsExistedException, SQLException { // cap nhat thong tin khach hang
 //        validateInformation(customerIdOld, name, email, phoneNumber);
         regexInfo(name, email, phoneNumber);
         if(isExisted("email",email) && !email.equals(getData("email",email))){
@@ -88,15 +88,14 @@ public class CustomerService {
 
     }
 
-    public void deleteCustomer(String customerId){
+    public void deleteCustomer(String customerId){ // xoa mem khach hang
         String deleteCustomerSql = "UPDATE customer "
                 + "SET is_delete = 1 "
                 + "WHERE identity_card = '" + customerId + "'";
 
-        if(AlertHelper.showConfirmation("Việc xoá này sẽ xoá toàn bộ lịch sử mượn của khách!")){
+        if(AlertHelper.showConfirmation("Việc xoá này sẽ xoá toàn bộ lịch sử mượn của khách!")){ // hien thi xac nhan xoa
             executeQuery.executeUpdate(deleteCustomerSql);
         }
-
     }
 
 

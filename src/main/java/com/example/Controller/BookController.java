@@ -107,7 +107,7 @@ public class BookController implements Initializable {
 
 
 
-    private void setCell() {
+    private void setCell() { // co dinh gia tri cho moi cot
         colId.setCellValueFactory(new PropertyValueFactory<>("bookId"));
         colBookName.setCellValueFactory(new PropertyValueFactory<>("bookName"));
         colAuthorName.setCellValueFactory(new PropertyValueFactory<>("authorName"));
@@ -292,7 +292,7 @@ public class BookController implements Initializable {
         }
     }
 
-    public void getListForFilter(ActionEvent actionEvent) throws SQLException {
+    public void getListForFilter(ActionEvent actionEvent) throws SQLException { // lay danh sach de loc, radio button
         if (rAuthor.isSelected()) {
             cbFilter.setItems(bookService.listAuthor());
         } else if (rCategory.isSelected()) {

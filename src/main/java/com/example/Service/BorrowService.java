@@ -51,7 +51,6 @@ public class BorrowService {
     }
 
     public List<String> getOutOfDateBookIds(String customerId) throws SQLException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Định dạng ngày tháng
         LocalDate currentDate = LocalDate.now();
 
         List<String> outOfDateBookIds = new ArrayList<>();
@@ -65,6 +64,8 @@ public class BorrowService {
 
         return outOfDateBookIds;
     }
+
+
 
     public void returnBookByBookId(String bookId, String customerId) throws SQLException {
         String returnBookSql = "update borrow\n" +
@@ -178,6 +179,24 @@ public class BorrowService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void highlightOutOfDate(TableView tableView){
+        tableView.setRowFactory(tableView1 -> new TableRow<Borrow>() {
+            @Override
+            protected void updateItem(Borrow item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null) {
+                    if (item.getEndDate().isBefore(LocalDate.now())) {
+                        setStyle("-fx-background-color: #CB6918;");
+                    } else {
+                        setStyle("");
+                    }
+                } else {
+                    setStyle("");
+                }
+            }
+        });
     }
 
     public void borrowBook(String bookId, String customerId, LocalDate endDate){

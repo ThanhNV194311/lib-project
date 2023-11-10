@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 public class BookService {
     static ExecuteQuery executeQuery = ExecuteQuery.getInstance();
 
-    public static ObservableList<BookDTO> getBookData() throws SQLException {
+    public static ObservableList<BookDTO> getBookData() throws SQLException { // observablelist ban chat la 1 mang
         ObservableList<BookDTO> result = FXCollections.observableArrayList();
         String getAllBookSql = "SELECT\n" +
                 "    b.book_id AS BookID,\n" +
@@ -63,7 +63,7 @@ public class BookService {
         }
     }
 
-    public ObservableList<String> listCategory() throws SQLException {
+    public ObservableList<String> listCategory() throws SQLException { // lay toan bo the loai
         ObservableList<String> result = FXCollections.observableArrayList();
         String getAllCategorySql = "Select * from category";
         ResultSet resultSet = executeQuery.executeQuery(getAllCategorySql);
@@ -75,7 +75,7 @@ public class BookService {
         return result;
     }
 
-    public ObservableList<String> listAuthor() throws SQLException {
+    public ObservableList<String> listAuthor() throws SQLException { // lay toan bo ten tac gia
         ObservableList<String> result = FXCollections.observableArrayList();
         String getAllAuthorSql = "Select * from author";
         ResultSet resultSet = executeQuery.executeQuery(getAllAuthorSql);
@@ -88,7 +88,7 @@ public class BookService {
     }
 
     public void toggleVisibilityAndButton(Button button, boolean flag, ComboBox cb, TextField txt, String buttonText1,
-            String buttonText2, String comboBoxPromptText) {
+                                          String buttonText2, String comboBoxPromptText) {
         if (flag) {
             cb.setVisible(true);
             txt.setVisible(false);
@@ -103,9 +103,9 @@ public class BookService {
         }
     }
 
-    public void addNewBook(String bookId, String bookName, String authorNameTxt, String authorNameCb,
-            String categoryTxt, String categoryCb, int quantityText, LocalDate publishDate) throws SQLException {
-        if(isExisted("book_id", bookId, "book")){
+    public void addNewBook(String bookId, String bookName, String authorNameTxt, String authorNameCb, // thuc hien viec them sach
+                           String categoryTxt, String categoryCb, int quantityText, LocalDate publishDate) throws SQLException {
+        if (isExisted("book_id", bookId, "book")) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, "Lỗi", null, "Mã sách đã tồn tại");
             return;
         }
@@ -169,7 +169,7 @@ public class BookService {
     }
 
     public void updateBook(int id, String newBookId, String newBookName, String newAuthorName, String newCategoryName,
-            int newQuantity, LocalDate newPublishDate) throws SQLException {
+                           int newQuantity, LocalDate newPublishDate) throws SQLException {
 
         int authorId = findIdByName("author_id", newAuthorName, "author", "name");
         int categoryId = findIdByName("category_id", newCategoryName, "category", "name");
@@ -183,7 +183,7 @@ public class BookService {
         executeQuery.executeUpdate(updateBookSql);
     }
 
-    public FilteredList<BookDTO> search(String keyword, ObservableList<BookDTO> books) {
+    public FilteredList<BookDTO> search(String keyword, ObservableList<BookDTO> books) { // giong voi list, thuc hien tim kiem tren observanlelist
         FilteredList<BookDTO> filteredData = new FilteredList<>(books, p -> true);
         if (!keyword.isEmpty()) {
             String lowerCaseKeyword = keyword.toLowerCase();
