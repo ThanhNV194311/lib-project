@@ -10,7 +10,7 @@ public class StatisticsService {
 
 
     public int getTotalCustomers() throws SQLException {
-        String getTotalCustomers = "SELECT COUNT(*) FROM customer";
+        String getTotalCustomers = "SELECT COUNT(*) FROM customer where is_delete = 0";
         ResultSet resultSet = executeQuery.executeQuery(getTotalCustomers);
 
         if(resultSet.next()) {
@@ -30,8 +30,20 @@ public class StatisticsService {
     }
 
     public int getTotalBooks() throws SQLException {
-        String getTotalBooks = "SELECT COUNT(*) FROM book";
+        String getTotalBooks = "SELECT Sum(amount) as total FROM book where is_delete = 0";
         ResultSet resultSet = executeQuery.executeQuery(getTotalBooks);
+
+        if(resultSet.next()) {
+            return resultSet.getInt(1);
+        }
+        return 0;
+    }
+
+    public int getTotalBorrowLate() throws SQLException {
+        String getTotalBorrowLateSql = "SELECT COUNT(*) AS total_overdue_books\n" +
+                "FROM borrow\n" +
+                "WHERE status = 0 AND return_date IS NULL AND (end_day < CURRENT_DATE OR (end_day = CURRENT_DATE AND CURRENT_TIME > '23:59:59'));\n";
+        ResultSet resultSet = executeQuery.executeQuery(getTotalBorrowLateSql);
 
         if(resultSet.next()) {
             return resultSet.getInt(1);

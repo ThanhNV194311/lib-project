@@ -33,15 +33,8 @@ public class StatisticsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        pieChart.getData().add(new PieChart.Data("Sách đang mượn", 10));
-        pieChart.getData().add(new PieChart.Data("Sách chưa mượn", 20));
-        pieChart.getData().add(new PieChart.Data("Sách đã mượn", 30));
 
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.getData().add(new XYChart.Data<>("Sách đang mượn", 10));
-        series.getData().add(new XYChart.Data<>("Sách chưa mượn", 20));
-        series.getData().add(new XYChart.Data<>("Sách đã mượn", 30));
-        barChart.getData().add(series);
+
 
         try {
             int totalCustomers = statisticsService.getTotalCustomers();
@@ -52,7 +45,7 @@ public class StatisticsController implements Initializable {
             txtSoSachDangMuon.setText(Integer.toString(totalBorrowedBooks));
             txtSoLuongSach.setText(Integer.toString(totalBooks));
         } catch (SQLException e) {
-            // Handle the exception, e.g., show an error message or log the exception
+
             e.printStackTrace();
         }
     }

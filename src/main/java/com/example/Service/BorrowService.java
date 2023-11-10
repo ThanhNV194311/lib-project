@@ -78,6 +78,10 @@ public class BorrowService {
                 "        from customer\n" +
                 "        where identity_card = '"+ customerId+"'\n" +
                 "    );";
+        String updateAmountBookSql = "update book\n" +
+                "set amount = amount + 1\n" +
+                "where book_id = '"+ bookId +"'";
+        executeQuery.executeUpdate(updateAmountBookSql);
         executeQuery.executeUpdate(returnBookSql);
 //        System.out.println(returnBookSql);
         AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Trả sách thành công", null, "Trả sách thành công");
@@ -196,6 +200,12 @@ public class BorrowService {
                 "    '"+ endDate +"',\n" +
                 "    0\n" +
                 ");";
+
+        String updateAmountBookSql = "update book\n" +
+                "set amount = amount - 1\n" +
+                "where book_id = '"+ bookId +"'";
+
+        executeQuery.executeUpdate(updateAmountBookSql);
         executeQuery.executeUpdate(borrowBookSql);
         AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Mượn sách thành công", null, "Mượn sách thành công");
     }
@@ -220,4 +230,7 @@ public class BorrowService {
         }
         return false;
     }
+
+
+
 }
