@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="542.0" prefWidth="885.0" stylesheets="@../../primer-light.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.BorrowController">
+<AnchorPane prefHeight="542.0" prefWidth="885.0" stylesheets="@../../primer-light.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.BorrowController">
    <children>
-      <TableView fx:id="tbBorrow" layoutY="98.0" prefHeight="200.0" prefWidth="885.0">
+      <TableView fx:id="tbBorrow" layoutY="98.0" onMouseClicked="#onSelectedTable" prefHeight="200.0" prefWidth="885.0">
         <columns>
           <TableColumn fx:id="colCustomerId" prefWidth="119.11114501953125" resizable="false" text="ID khách" />
             <TableColumn fx:id="colBookId" prefWidth="110.66661834716797" resizable="false" text="ID Sách" />

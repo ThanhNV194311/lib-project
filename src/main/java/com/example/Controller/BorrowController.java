@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -106,5 +107,12 @@ public class BorrowController implements Initializable {
     public void onClickBorrowBook(ActionEvent actionEvent) throws SQLException { // khi bam nut muon sach
         borrowService.borrowBook(cbBookId.getValue(), cbCustomerId.getValue(), dpEndDate.getValue());
         tbBorrow.setItems(borrowService.getAllBorrow());
+    }
+
+    public void onSelectedTable(MouseEvent mouseEvent) {
+        Borrow borrowSelected = tbBorrow.getSelectionModel().getSelectedItem();
+        cbBookId.setValue(borrowSelected.getBookId());
+        cbCustomerId.setValue(borrowSelected.getCustomerId());
+        dpEndDate.setValue(borrowSelected.getEndDate());
     }
 }
