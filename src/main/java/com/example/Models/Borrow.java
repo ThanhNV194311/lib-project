@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class Borrow {
     private String customerId;
     private String bookId;
-    private String bookName;
+    private String bookName;    
     private LocalDate startDate;
     private LocalDate endDate;
     private LocalDate returnDate;

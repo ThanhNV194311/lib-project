@@ -12,7 +12,7 @@
       <AnchorPane fx:id="pane" layoutX="218.0" layoutY="62.0" prefHeight="806.0" prefWidth="998.0" />
       <ImageView fitHeight="67.0" fitWidth="216.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../logo.png" />
+            <Image url="@logo_vn.png" />
          </image>
       </ImageView>
       <Button layoutX="64.0" layoutY="586.0" mnemonicParsing="false" onAction="#onClickLogout" style="-fx-background-color: #848484;" text="Đăng xuất" />

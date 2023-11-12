@@ -4,7 +4,7 @@ import com.example.Service.StatisticsService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.PieChart;
+import javafx.scene.chart.*;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -12,9 +12,11 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class StatisticsController implements Initializable {
-
-    public PieChart pieChart;
-    public Text txtQuaHan;
+    public BarChart barChart;
+    @FXML
+    private PieChart pieChart;
+    @FXML
+    private Text txtQuaHan;
 
     @FXML
     private Text txtSoLuongKhach;
@@ -35,21 +37,9 @@ public class StatisticsController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) { // tu khoi chay khi vao ung dung
         try {
             PieChart.Data overdueData = new PieChart.Data("Quá hạn", statisticsService.getTotalBorrowLate());
-            PieChart.Data returnedData = new PieChart.Data("Đã trả", statisticsService.getTotalBorrowedBooks());
-
-//            cho over due data màu đỏ
-
-
+            PieChart.Data returnedData = new PieChart.Data("Tổng số lượt mượn", statisticsService.getAllBorrowedBooks());
             pieChart.setData(FXCollections.observableArrayList(overdueData, returnedData));
             returnedData.getNode().setStyle("-fx-pie-color: red");
-
-
-            // set legend giong nhu tren pie chart
-
-
-
-
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -50,4 +50,14 @@ public class StatisticsService {
         }
         return 0;
     }
+
+    public int getAllBorrowedBooks() throws SQLException {
+        String getAllBorrowedBooks = "SELECT * FROM borrow";
+        ResultSet resultSet = executeQuery.executeQuery(getAllBorrowedBooks);
+
+        if(resultSet.next()){
+            return resultSet.getInt(1);
+        }
+        return 0;
+    }
 }

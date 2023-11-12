@@ -3,6 +3,7 @@ package com.example.Controller;
 import com.example.Models.Borrow;
 import com.example.Service.BorrowService;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,21 +16,31 @@ import java.util.ResourceBundle;
 import static com.example.Helper.TableHelper.showOnTable;
 
 public class CustomerBorrowController extends TableRow<Borrow> implements Initializable {
-    public TableView<Borrow> tbDetail;
-    public TableColumn<Borrow, String> colCustomerId;
-    public TableColumn<Borrow, String> colBookId;
-    public TableColumn<Borrow, String> colBookName;
-    public TableColumn<Borrow, String> colStartDate;
-    public TableColumn<Borrow, String> colEndDate;
-    public TextField txtSearch;
-    public TableColumn<Borrow, String> colReturnDate;
-    public TableColumn<Borrow, String> colStatus;
-    public Label lbWelcome;
+    @FXML
+    private TableView<Borrow> tbDetail;
+    @FXML
+    private TableColumn<Borrow, String> colCustomerId;
+    @FXML
+    private TableColumn<Borrow, String> colBookId;
+    @FXML
+    private TableColumn<Borrow, String> colBookName;
+    @FXML
+    private TableColumn<Borrow, String> colStartDate;
+    @FXML
+    private TableColumn<Borrow, String> colEndDate;
+    @FXML
+    private TextField txtSearch;
+    @FXML
+    private TableColumn<Borrow, String> colReturnDate;
+    @FXML
+    private TableColumn<Borrow, String> colStatus;
+    @FXML
+    private Label lbWelcome;
     private final BorrowService borrowService;
     private static String customerId;
 
 
-    public CustomerBorrowController(){
+    public CustomerBorrowController() {
         this.borrowService = new BorrowService();
     }
 
