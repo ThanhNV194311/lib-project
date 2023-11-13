@@ -189,11 +189,12 @@ public class BookService {
             String lowerCaseKeyword = keyword.toLowerCase();
 
             filteredData.setPredicate(book -> {
+                String bookId = book.getBookId().toLowerCase();
                 String bookName = book.getBookName().toLowerCase();
                 String authorName = book.getAuthorName().toLowerCase();
                 String categoryName = book.getCategoryName().toLowerCase();
 
-                return bookName.contains(lowerCaseKeyword)
+                return bookName.contains(lowerCaseKeyword) || bookId.contains(lowerCaseKeyword)
                         || authorName.contains(lowerCaseKeyword)
                         || categoryName.contains(lowerCaseKeyword);
             });

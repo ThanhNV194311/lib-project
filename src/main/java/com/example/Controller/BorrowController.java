@@ -83,7 +83,9 @@ public class BorrowController implements Initializable {
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
 
-    public void search(KeyEvent keyEvent) {
+    public void search(KeyEvent keyEvent) throws SQLException {
+        String keyword = txtSearch.getText();
+        tbBorrow.setItems(borrowService.search(keyword, borrowService.getAllBorrow()));
     }
 
 

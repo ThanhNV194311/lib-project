@@ -190,7 +190,7 @@ public class CustomerController implements Initializable {
     }
 
     public void search(KeyEvent keyEvent) throws SQLException { // tim kiem khach hang
-        String keyword = keyEvent.getText();
+        String keyword = txtSearch.getText();
         tbCustomer.setItems(customerService.search(keyword, customerService.customersData()));
     }
 

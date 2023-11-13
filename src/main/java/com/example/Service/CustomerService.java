@@ -162,12 +162,13 @@ public class CustomerService {
             String lowerCaseKeyword = keyword.toLowerCase();
 
             filteredData.setPredicate(customer -> {
+                String customerId = customer.getIdentityCard().toLowerCase();
                 String email = customer.getEmail().toLowerCase();
                 String identityCard = customer.getIdentityCard().toLowerCase();
                 String phoneNumber = customer.getPhoneNumber().toLowerCase();
                 String name = customer.getName().toLowerCase();
 
-                return email.contains(lowerCaseKeyword)
+                return email.contains(lowerCaseKeyword) || customerId.contains(lowerCaseKeyword)
                         || identityCard.contains(lowerCaseKeyword)
                         || phoneNumber.contains(lowerCaseKeyword)
                         || name.contains(lowerCaseKeyword);

@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class BookController implements Initializable {
+    public TextField txtSearch;
     @FXML
     private ComboBox<String> cbAuthor;
     @FXML
@@ -271,7 +272,7 @@ public class BookController implements Initializable {
     }
 
     public void search(KeyEvent keyEvent) throws SQLException {
-        String keyword = keyEvent.getText();
+        String keyword = txtSearch.getText();
         tbBook.setItems(bookService.search(keyword, bookService.getBookData()));
     }
 

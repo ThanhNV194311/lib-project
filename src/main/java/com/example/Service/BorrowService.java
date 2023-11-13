@@ -1,10 +1,12 @@
 package com.example.Service;
 
+import com.example.DTO.BookDTO;
 import com.example.Helper.AlertHelper;
 import com.example.Models.Borrow;
 import com.example.Utils.ExecuteQuery;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -250,6 +252,20 @@ public class BorrowService {
         return false;
     }
 
+    public FilteredList<Borrow> search(String keyword, ObservableList<Borrow> table){
+        FilteredList<Borrow> filteredData = new FilteredList<>(table, p -> true);
+        if(!keyword.isEmpty()){
+            String lowerCaseFilter = keyword.toLowerCase();
 
+            filteredData.setPredicate(borrow -> {
+                String bookId = borrow.getBookId().toLowerCase();
+                String customerId = borrow.getCustomerId().toLowerCase();
+                String status = borrow.getStatus().toLowerCase();
 
+                return bookId.contains(lowerCaseFilter) || customerId.contains(lowerCaseFilter) || status.contains(lowerCaseFilter);
+            });
+        }
+        return filteredData;
+
+    }
 }

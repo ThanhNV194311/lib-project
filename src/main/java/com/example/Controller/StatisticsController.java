@@ -39,7 +39,6 @@ public class StatisticsController implements Initializable {
             PieChart.Data overdueData = new PieChart.Data("Quá hạn", statisticsService.getTotalBorrowLate());
             PieChart.Data returnedData = new PieChart.Data("Tổng số lượt mượn", statisticsService.getAllBorrowedBooks());
             pieChart.setData(FXCollections.observableArrayList(overdueData, returnedData));
-            returnedData.getNode().setStyle("-fx-pie-color: red");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
